@@ -1,0 +1,187 @@
+GIT
+  remote: https://github.com/nolantait/dry-files.git
+  revision: dc5a9db89ffd6fe81486096c80f080751f8b44e9
+  branch: entries-nt
+  specs:
+    dry-files (1.1.0)
+
+PATH
+  remote: .
+  specs:
+    staticky (0.1.0)
+      dry-files
+      dry-system
+      phlex
+      roda
+      tilt
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activesupport (7.1.3.4)
+      base64
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      connection_pool (>= 2.2.5)
+      drb
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      mutex_m
+      tzinfo (~> 2.0)
+    addressable (2.8.7)
+      public_suffix (>= 2.0.2, < 7.0)
+    ast (2.4.2)
+    base64 (0.2.0)
+    bigdecimal (3.1.8)
+    capybara (3.40.0)
+      addressable
+      matrix
+      mini_mime (>= 0.1.3)
+      nokogiri (~> 1.11)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      regexp_parser (>= 1.5, < 3.0)
+      xpath (~> 3.2)
+    concurrent-ruby (1.3.3)
+    connection_pool (2.4.1)
+    debug (1.9.2)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
+    diff-lcs (1.5.1)
+    drb (2.2.1)
+    dry-auto_inject (1.0.1)
+      dry-core (~> 1.0)
+      zeitwerk (~> 2.6)
+    dry-configurable (1.2.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-core (1.0.1)
+      concurrent-ruby (~> 1.0)
+      zeitwerk (~> 2.6)
+    dry-inflector (1.1.0)
+    dry-system (1.0.1)
+      dry-auto_inject (~> 1.0, < 2)
+      dry-configurable (~> 1.0, < 2)
+      dry-core (~> 1.0, < 2)
+      dry-inflector (~> 1.0, < 2)
+    i18n (1.14.5)
+      concurrent-ruby (~> 1.0)
+    io-console (0.7.2)
+    irb (1.14.0)
+      rdoc (>= 4.0.0)
+      reline (>= 0.4.2)
+    json (2.7.2)
+    language_server-protocol (3.17.0.3)
+    matrix (0.4.2)
+    mini_mime (1.1.5)
+    mini_portile2 (2.8.7)
+    minitest (5.24.1)
+    mutex_m (0.2.0)
+    nokogiri (1.16.6)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.16.6-arm64-darwin)
+      racc (~> 1.4)
+    parallel (1.25.1)
+    parser (3.3.3.0)
+      ast (~> 2.4.1)
+      racc
+    phlex (1.11.0)
+    psych (5.1.2)
+      stringio
+    public_suffix (6.0.0)
+    racc (1.8.0)
+    rack (3.1.6)
+    rack-test (2.1.0)
+      rack (>= 1.3)
+    rainbow (3.1.1)
+    rake (13.2.1)
+    rdoc (6.7.0)
+      psych (>= 4.0.0)
+    regexp_parser (2.9.2)
+    reline (0.5.9)
+      io-console (~> 0.5)
+    rexml (3.3.1)
+      strscan
+    roda (3.81.0)
+      rack
+    rspec (3.13.0)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.0)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.1)
+    rubocop (1.64.1)
+      json (~> 2.3)
+      language_server-protocol (>= 3.17.0)
+      parallel (~> 1.10)
+      parser (>= 3.3.0.2)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.31.1, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 3.0)
+    rubocop-ast (1.31.3)
+      parser (>= 3.3.1.0)
+    rubocop-capybara (2.21.0)
+      rubocop (~> 1.41)
+    rubocop-factory_bot (2.26.1)
+      rubocop (~> 1.61)
+    rubocop-inhouse (0.1.8)
+      rubocop (>= 1.5)
+      rubocop-capybara (>= 2.1)
+      rubocop-factory_bot (>= 2.2)
+      rubocop-performance (>= 1.1)
+      rubocop-rails (>= 2.2)
+      rubocop-rake (>= 0.6)
+      rubocop-rspec (>= 2.2)
+      rubocop-rspec_rails (>= 2.2)
+    rubocop-performance (1.21.1)
+      rubocop (>= 1.48.1, < 2.0)
+      rubocop-ast (>= 1.31.1, < 2.0)
+    rubocop-rails (2.25.1)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 1.33.0, < 2.0)
+      rubocop-ast (>= 1.31.1, < 2.0)
+    rubocop-rake (0.6.0)
+      rubocop (~> 1.0)
+    rubocop-rspec (3.0.2)
+      rubocop (~> 1.61)
+    rubocop-rspec_rails (2.30.0)
+      rubocop (~> 1.61)
+      rubocop-rspec (~> 3, >= 3.0.1)
+    ruby-progressbar (1.13.0)
+    stringio (3.1.1)
+    strscan (3.1.0)
+    tilt (2.4.0)
+    tzinfo (2.0.6)
+      concurrent-ruby (~> 1.0)
+    unicode-display_width (2.5.0)
+    xpath (3.2.0)
+      nokogiri (~> 1.8)
+    zeitwerk (2.6.16)
+
+PLATFORMS
+  arm64-darwin-23
+  ruby
+
+DEPENDENCIES
+  capybara
+  debug
+  dry-files!
+  rake
+  rspec
+  rubocop-inhouse
+  staticky!
+
+BUNDLED WITH
+   2.5.14
