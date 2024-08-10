@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
 require "phlex"
+require "dry/system"
 
 require_relative "staticky/error"
 require_relative "staticky/version"
 require_relative "staticky/environment"
+require_relative "staticky/server"
+require_relative "staticky/container"
 require_relative "staticky/resource"
 require_relative "staticky/files"
 require_relative "staticky/router"
 require_relative "staticky/builder"
-require_relative "staticky/server"
-require_relative "staticky/container"
 
 module Staticky
   module_function
@@ -21,8 +22,14 @@ module Staticky
   # - Development server
   # - Managing filesystem
 
-  def configure(&block)
-    block.call(container.config)
+  def finalize!
+    container.register :server, Server.freeze.app
+    container.register :router, Router.new
+    container.register :files, Files.real
+  end
+
+  def configure
+    yield(container.config)
   end
 
   def files
@@ -56,15 +63,6 @@ module Staticky
   def container
     Container
   end
-
-  module ViewHelpers
-    def link_to(text, href, **, &block) # rubocop:disable Metrics/ParameterLists
-      block ||= proc { text }
-      href = Staticky.router.resolve(href).url
-
-      a(href:, **, &block)
-    end
-  end
-
-  Phlex::SGML.prepend Staticky::ViewHelpers
 end
+
+Staticky.finalize!

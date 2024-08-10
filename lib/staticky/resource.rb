@@ -17,5 +17,9 @@ module Staticky
     def root?
       url == "/"
     end
+
+    def build
+      component.call(view_context: nil)
+    end
   end
 end

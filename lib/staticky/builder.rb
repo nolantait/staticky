@@ -27,10 +27,7 @@ module Staticky
       @router
         .resources
         .each do |resource|
-          compile(
-            output_path(resource.filepath),
-            resource.component.call(view_context: nil)
-          )
+          compile output_path(resource.filepath), resource.build
         end
     end
 
