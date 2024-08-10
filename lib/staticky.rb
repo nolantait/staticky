@@ -6,11 +6,10 @@ require "dry/system"
 require_relative "staticky/error"
 require_relative "staticky/version"
 require_relative "staticky/environment"
-require_relative "staticky/server"
+require_relative "staticky/router"
+require_relative "staticky/files"
 require_relative "staticky/container"
 require_relative "staticky/resource"
-require_relative "staticky/files"
-require_relative "staticky/router"
 require_relative "staticky/builder"
 
 module Staticky
@@ -21,12 +20,6 @@ module Staticky
   # - Compiling templates
   # - Development server
   # - Managing filesystem
-
-  def finalize!
-    container.register :server, Server.freeze.app
-    container.register :router, Router.new
-    container.register :files, Files.real
-  end
 
   def configure
     yield(container.config)
@@ -64,5 +57,3 @@ module Staticky
     Container
   end
 end
-
-Staticky.finalize!

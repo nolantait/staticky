@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
+require_relative "../staticky"
 require "roda"
-require "logger"
 require "tilt"
 
 module Staticky
   class Server < Roda
     NotFound = Class.new(Staticky::Error)
 
-    plugin :common_logger, Logger.new($stdout), method: :debug
+    plugin :common_logger, Container.logger, method: :debug
     plugin :render, engine: "html"
 
     plugin :not_found do

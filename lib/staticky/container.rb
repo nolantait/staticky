@@ -8,5 +8,8 @@ module Staticky
 
     setting :build_path, default: Pathname.new("build")
     setting :root_path, default: Pathname(__dir__)
+
+    register :router, Router.new
+    register :files, Files.real
   end
 end
