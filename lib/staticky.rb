@@ -37,10 +37,6 @@ module Staticky
     container.config.root_path
   end
 
-  def server
-    container[:server]
-  end
-
   def resources
     router.resources
   end

@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
-require_relative "../staticky"
 require "roda"
 require "tilt"
 
+require_relative "../staticky"
+
 module Staticky
   class Server < Roda
+    # This runs a local development server that serves the static files
+    # Require this in your config.ru file and run something like `rackup` to
+    # start the server
+
     NotFound = Class.new(Staticky::Error)
 
     plugin :common_logger, Container.logger, method: :debug

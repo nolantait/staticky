@@ -9,6 +9,8 @@ module Staticky
     #
     # NOTE: Why do we need our own router? Why not just use Roda for these
     # definitions? Roda is a routing tree and cannot be introspected easily.
+    # In Staticky when we build we need to do a lot of introspection to link
+    # routes to resources on the file system.
 
     def initialize
       @definition = Staticky::Router::Definition.new

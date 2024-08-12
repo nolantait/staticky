@@ -19,7 +19,7 @@ module Staticky
     end
 
     def build
-      component.call(view_context: nil)
+      component.call(view_context: self)
     end
   end
 end
