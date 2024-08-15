@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = spec.summary
   spec.homepage = "https://github.com/nolantait/staticky"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 3.0.0"
+  spec.required_ruby_version = ">= 3.1"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
@@ -49,10 +49,10 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
-  spec.add_dependency "dry-files"
   spec.add_dependency "dry-system"
   spec.add_dependency "phlex"
   spec.add_dependency "roda"
+  spec.add_dependency "staticky-files"
   spec.add_dependency "tilt"
 
   # For more information and examples about making a new gem, check out our

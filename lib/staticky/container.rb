@@ -10,6 +10,6 @@ module Staticky
     setting :root_path, default: Pathname(__dir__)
 
     register :router, Router.new
-    register :files, Files.real
+    register :files, Filesystem.real
   end
 end

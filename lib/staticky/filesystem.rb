@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 require "delegate"
-require "dry-files"
+require "staticky-files"
 
 module Staticky
-  class Files < SimpleDelegator
+  class Filesystem < SimpleDelegator
     def self.test
-      files = Dry::Files.new(memory: true)
+      files = Staticky::Files.new(memory: true)
       new(files)
     end
 
     def self.real
-      files = Dry::Files.new
+      files = Staticky::Files.new
       new(files)
     end
 

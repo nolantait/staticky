@@ -1,18 +1,11 @@
-GIT
-  remote: https://github.com/nolantait/dry-files.git
-  revision: dc5a9db89ffd6fe81486096c80f080751f8b44e9
-  branch: entries-nt
-  specs:
-    dry-files (1.1.0)
-
 PATH
   remote: .
   specs:
     staticky (0.1.0)
-      dry-files
       dry-system
       phlex
       roda
+      staticky-files
       tilt
 
 GEM
@@ -77,7 +70,7 @@ GEM
     matrix (0.4.2)
     mini_mime (1.1.5)
     mini_portile2 (2.8.7)
-    minitest (5.24.1)
+    minitest (5.25.0)
     nokogiri (1.16.7)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -102,9 +95,9 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.9)
       io-console (~> 0.5)
-    rexml (3.3.4)
+    rexml (3.3.5)
       strscan
-    roda (3.82.0)
+    roda (3.83.0)
       rack
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
@@ -162,6 +155,7 @@ GEM
       rubocop-rspec (~> 3, >= 3.0.1)
     ruby-progressbar (1.13.0)
     securerandom (0.3.1)
+    staticky-files (0.1.0)
     stringio (3.1.1)
     strscan (3.1.0)
     tilt (2.4.0)
@@ -179,7 +173,6 @@ PLATFORMS
 DEPENDENCIES
   capybara
   debug
-  dry-files!
   rake
   rspec
   rubocop-inhouse

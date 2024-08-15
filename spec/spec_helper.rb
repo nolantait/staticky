@@ -13,7 +13,7 @@ end
 
 Staticky::Container.enable_stubs!
 
-Staticky::Container.stub(:files, Staticky::Files.test)
+Staticky::Container.stub(:files, Staticky::Filesystem.test)
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
