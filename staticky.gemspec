@@ -19,7 +19,8 @@ Gem::Specification.new do |spec|
   spec.metadata["changelog_uri"] = spec.homepage
 
   # Specify which files should be added to the gem when it is released.
-  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
+  # The `git ls-files -z` loads the files in the RubyGem that have been added
+  # into git.
   gemspec = File.basename(__FILE__)
   spec.files = IO.popen(
     %w[git ls-files -z],
@@ -44,11 +45,12 @@ Gem::Specification.new do |spec|
         )
     end
   end
-  spec.bindir = "exe"
-  spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
+  spec.bindir = "bin"
+  spec.executables = ["staticky"]
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
+  spec.add_dependency "dry-cli"
   spec.add_dependency "dry-configurable"
   spec.add_dependency "dry-events"
   spec.add_dependency "dry-logger"

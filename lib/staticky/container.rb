@@ -8,6 +8,9 @@ module Staticky
 
     configure do |config|
       config.root = Pathname(__dir__).join("..").join("..")
+      config.inflector = Dry::Inflector.new do |inflections|
+        inflections.acronym("CLI")
+      end
       config.component_dirs.add "lib" do |dir|
         dir.add_to_load_path = false
         dir.auto_register = false
