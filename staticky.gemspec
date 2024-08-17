@@ -50,6 +50,8 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   spec.add_dependency "dry-configurable"
+  spec.add_dependency "dry-events"
+  spec.add_dependency "dry-monitor"
   spec.add_dependency "dry-system"
   spec.add_dependency "phlex"
   spec.add_dependency "roda"
