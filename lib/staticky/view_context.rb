@@ -7,5 +7,9 @@ module Staticky
     def root?
       @resource.root?
     end
+
+    def current_path
+      @resource.url
+    end
   end
 end

@@ -2,13 +2,19 @@
 
 module Staticky
   class Builder
+    include Dry::Events::Publisher[:builder]
     include Deps[:files, :router]
+
+    register_event("build.started")
+    register_event("build.finished")
 
     def self.call(...) = new(...).call
 
     def call
+      publish("build.started")
       copy_public_files
       build_site
+      publish("build.finished")
     end
 
     private

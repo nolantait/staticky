@@ -5,7 +5,6 @@ require "staticky"
 require "dry/system/stubs"
 
 Staticky.configure do |config|
-  config.logger = Logger.new($stdout)
   config.root_path = Pathname.new(__dir__).join("fixtures")
   config.build_path = Pathname.new(__dir__).join("fixtures/build")
   config.env = :test

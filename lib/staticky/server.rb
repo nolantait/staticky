@@ -13,7 +13,7 @@ module Staticky
 
     NotFound = Class.new(Staticky::Error)
 
-    plugin :common_logger, Staticky.config.logger, method: :debug
+    plugin :common_logger, Staticky.server_logger, method: :debug
     plugin :render, engine: "html"
 
     plugin :not_found do
