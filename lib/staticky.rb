@@ -28,43 +28,18 @@ module Staticky
     formatter: :rack
   )
 
-  def on(event_type, &block)
-    builder.subscribe(event_type, &block)
-  end
-
-  def server_logger
-    config.server_logger
-  end
-
-  def logger
-    config.logger
-  end
-
-  def build_path
-    config.build_path
-  end
-
-  def root_path
-    config.root_path
-  end
-
-  def resources
-    router.resources
-  end
-
-  def router
-    container[:router]
-  end
-
-  def builder
-    container[:builder]
-  end
+  def monitor(...) = container.monitor(...)
+  def on(event_type, &block) = builder.subscribe(event_type, &block)
+  def server_logger =config.server_logger
+  def logger = config.logger
+  def build_path = config.build_path
+  def root_path = config.root_path
+  def resources = router.resources
+  def router = container[:router]
+  def builder = container[:builder]
+  def container = Container
 
   def env
     @env ||= Environment.new container.env
-  end
-
-  def container
-    Container
   end
 end
