@@ -38,6 +38,10 @@ module Staticky
     container[:router]
   end
 
+  def builder
+    container[:builder]
+  end
+
   def env
     @env ||= Environment.new container.env
   end
