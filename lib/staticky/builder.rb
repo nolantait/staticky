@@ -5,16 +5,20 @@ module Staticky
     include Dry::Events::Publisher[:builder]
     include Deps[:files, :router]
 
-    register_event("build.started")
-    register_event("build.finished")
+    register_event("started")
+    register_event("finished")
+    register_event("before_resource")
+    register_event("after_resource")
 
     def self.call(...) = new(...).call
 
+    def on(event_type, &block) = subscribe(event_type, &block)
+
     def call
-      publish("build.started")
+      publish("started")
       copy_public_files
       build_site
-      publish("build.finished")
+      publish("finished")
     end
 
     private
@@ -23,7 +27,9 @@ module Staticky
       @router
         .resources
         .each do |resource|
+          publish("before_resource", resource:)
           compile output_path(resource.filepath), resource.build
+          publish("after_resource", resource:)
         end
     end
 

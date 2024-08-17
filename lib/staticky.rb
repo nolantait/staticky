@@ -29,7 +29,6 @@ module Staticky
   )
 
   def monitor(...) = container.monitor(...)
-  def on(event_type, &block) = builder.subscribe(event_type, &block)
   def server_logger =config.server_logger
   def logger = config.logger
   def build_path = config.build_path
