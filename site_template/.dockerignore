@@ -1,0 +1,4 @@
+spec/
+Procfile.dev
+README.md
+node_modules/

@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --spacing-xs: clamp(0.5rem, 1%, 1rem);
+    --spacing-sm: clamp(0.75rem, 3%, 1.2rem);
+    --spacing-md: clamp(1.25rem, 6%, 2.5rem);
+    --spacing-lg: clamp(3rem, 12%, 6rem);
+    --spacing-xl: clamp(6rem, 24%, 12rem);
+    --spacing-gap-xs: clamp(0.5rem, 1vmax, 1rem);
+    --spacing-gap-sm: clamp(1rem, 3vmax, 1.5rem);
+    --spacing-gap-md: clamp(1.5rem, 6vmax, 3rem);
+    --spacing-gap-lg: clamp(3rem, 8vmax, 4rem);
+    --spacing-gap-xl: clamp(4rem, 12vmax, 6rem);
+    --shadow-color: var(--b3);
+    --box-shadow-sm:
+      0.3px 0.5px 0.5px oklch(var(--shadow-color) / 0.49),
+      0.5px 0.7px 0.8px -1.9px oklch(var(--shadow-color) / 0.38),
+      1.3px 1.9px 2.2px -3.7px oklch(var(--shadow-color) / 0.27);
+    --box-shadow-md:
+      0.3px 0.5px 0.5px oklch(var(--shadow-color) / 0.51),
+      0.8px 1.2px 1.4px -1.2px oklch(var(--shadow-color) / 0.43),
+      2.3px 3.6px 4px -2.5px oklch(var(--shadow-color) / 0.34),
+      6.3px 9.6px 10.8px -3.7px oklch(var(--shadow-color) / 0.26);
+    --box-shadow-lg:
+      0.3px 0.5px 0.5px oklch(var(--shadow-color) / 0.54),
+      1.3px 1.9px 2.2px -0.6px oklch(var(--shadow-color) / 0.49),
+      2.7px 4.1px 4.6px -1.2px oklch(var(--shadow-color) / 0.44),
+      5.5px 8.4px 9.4px -1.9px oklch(var(--shadow-color) / 0.39),
+      10.6px 16.1px 18.1px -2.5px oklch(var(--shadow-color) / 0.34),
+      18.7px 28.4px 31.9px -3.1px oklch(var(--shadow-color) / 0.29),
+      30.7px 46.6px 52.3px -3.7px oklch(var(--shadow-color) / 0.23);
+    --navbar-height: 64px;
+    --main-scene: calc(100vh - var(--navbar-height));
+    --viewport-padding: var(--spacing-md);
+  }
+
+  body {
+    @apply bg-base-400;
+  }
+
+  .prose pre {
+    @apply bg-base-300 border;
+  }
+
+  * {
+    scrollbar-color: theme("colors.base-200") theme("colors.base-300");
+    border-color: theme("colors.base-200");
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    background: theme("colors.base-300")
+  }
+
+  *::-webkit-scrollbar-track {
+    background: theme("colors.base-200");
+  }
+}
