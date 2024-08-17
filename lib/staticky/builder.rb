@@ -2,19 +2,9 @@
 
 module Staticky
   class Builder
-    def self.call(...) = new(...).call
+    include Deps[:files, :router]
 
-    def initialize(
-      files: Staticky.files,
-      output: Staticky.build_path,
-      root: Staticky.root_path,
-      router: Staticky.router
-    )
-      @files = files
-      @root_path = Pathname.new(root)
-      @output_path = Pathname.new(output)
-      @router = router
-    end
+    def self.call(...) = new(...).call
 
     def call
       copy_public_files
@@ -32,7 +22,7 @@ module Staticky
     end
 
     def copy_public_files
-      public_folder = @root_path.join("public")
+      public_folder = Staticky.root_path.join("public")
       return unless @files.exist? public_folder
 
       @files.children(public_folder).each do |file|
@@ -50,11 +40,11 @@ module Staticky
     end
 
     def public_path(path)
-      @root_path.join("public", path)
+      Staticky.root_path.join("public", path)
     end
 
     def output_path(path)
-      @output_path.join(path)
+      Staticky.build_path.join(path)
     end
   end
 end

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "router/definition"
-
 module Staticky
   class Router
     # DOCS: Holds routes as a class instance variable. This class is expected to

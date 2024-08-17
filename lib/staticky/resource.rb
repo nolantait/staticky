@@ -18,8 +18,8 @@ module Staticky
       url == "/"
     end
 
-    def build
-      component.call(view_context: self)
+    def build(view_context: ViewContext.new(self))
+      component.call(view_context:)
     end
   end
 end

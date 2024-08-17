@@ -6,10 +6,17 @@ module Staticky
     use :zeitwerk
     use :logging
 
-    setting :build_path, default: Pathname.new("build")
-    setting :root_path, default: Pathname(__dir__)
+    configure do |config|
+      config.root = Pathname(__dir__).join("..").join("..")
+      config.component_dirs.add "lib" do |dir|
+        dir.add_to_load_path = false
+        dir.auto_register = false
+        dir.namespaces.add "staticky", key: nil
+      end
+    end
 
-    register :router, Router.new
-    register :files, Filesystem.real
+    register(:files, Staticky::Filesystem.real)
+    register(:router, Staticky::Router.new)
+    register(:builder, Staticky::Builder.new)
   end
 end

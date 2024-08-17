@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     staticky (0.1.0)
+      dry-configurable
       dry-system
       phlex
       roda

@@ -4,16 +4,14 @@ require "debug"
 require "staticky"
 require "dry/system/stubs"
 
-Staticky.configure do |config|
-  config.logger = Logger.new($stdout)
-  config.root_path = Pathname.new(__dir__).join("fixtures")
-  config.build_path = Pathname.new(__dir__).join("fixtures/build")
-  config.env = :test
-end
+Staticky.config.logger = Logger.new($stdout)
+Staticky.config.root_path = Pathname.new(__dir__).join("fixtures")
+Staticky.config.build_path = Pathname.new(__dir__).join("fixtures/build")
+Staticky.config.env = :test
 
-Staticky::Container.enable_stubs!
+Staticky.container.enable_stubs!
 
-Staticky::Container.stub(:files, Staticky::Filesystem.test)
+Staticky.container.stub(:files, Staticky::Filesystem.test)
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
