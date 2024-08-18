@@ -2,16 +2,16 @@ PATH
   remote: .
   specs:
     staticky (0.1.0)
-      dry-cli
-      dry-configurable
-      dry-events
-      dry-logger
-      dry-monitor
-      dry-system
-      phlex
-      roda
-      staticky-files
-      tilt
+      dry-cli (~> 1.1)
+      dry-configurable (~> 1.2)
+      dry-events (~> 1.0)
+      dry-logger (~> 1.0)
+      dry-monitor (~> 1.0)
+      dry-system (~> 1.0)
+      phlex (~> 1.11)
+      roda (~> 3.83)
+      staticky-files (~> 0.1)
+      tilt (~> 2.4)
 
 GEM
   remote: https://rubygems.org/
@@ -137,7 +137,7 @@ GEM
       rubocop-ast (>= 1.31.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.32.0)
+    rubocop-ast (1.32.1)
       parser (>= 3.3.1.0)
     rubocop-capybara (2.21.0)
       rubocop (~> 1.41)

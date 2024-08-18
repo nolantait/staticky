@@ -50,16 +50,16 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
-  spec.add_dependency "dry-cli"
-  spec.add_dependency "dry-configurable"
-  spec.add_dependency "dry-events"
-  spec.add_dependency "dry-logger"
-  spec.add_dependency "dry-monitor"
-  spec.add_dependency "dry-system"
-  spec.add_dependency "phlex"
-  spec.add_dependency "roda"
-  spec.add_dependency "staticky-files"
-  spec.add_dependency "tilt"
+  spec.add_dependency "dry-cli", "~> 1.1"
+  spec.add_dependency "dry-configurable", "~> 1.2"
+  spec.add_dependency "dry-events", "~> 1.0"
+  spec.add_dependency "dry-logger", "~> 1.0"
+  spec.add_dependency "dry-monitor", "~> 1.0"
+  spec.add_dependency "dry-system", "~> 1.0"
+  spec.add_dependency "phlex", "~> 1.11"
+  spec.add_dependency "roda", "~> 3.83"
+  spec.add_dependency "staticky-files", "~> 0.1"
+  spec.add_dependency "tilt", "~> 2.4"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
