@@ -52,11 +52,13 @@ Staticky.router.define do
 end
 ```
 
-Each route takes a Phlex component. We can either pass the class for a default
-initialization (we just call `.new`) or initialize it ourselves.
+Each route takes a Phlex component (or any object that outputs a string from
+`#call`). We can either pass the class for a default initialization (we just
+call `.new`) or initialize it ourselves.
 
-Here we are using a [protos](https://github.com/inhouse-work/protos) component,
-but you can use plain old Phlex components if you like.
+Here is an example of what the `Posts::Show` component might look like. We are
+using a [protos](https://github.com/inhouse-work/protos) component, but you can
+use plain old Phlex components if you like.
 
 ```ruby
 module Posts
@@ -95,11 +97,12 @@ end
 ```
 
 When you are developing your site you run `bin/dev` to start your development
-server on `https://localhost:9292`. This will automatically reload after a short
+server on http://localhost:9292. This will automatically reload after a short
 period when you make changes.
 
 Assets are handled by Vite by default, but you can have whatever build process
-you like just by tweaking `Procfile.dev` and your `Rakefile`
+you like just by tweaking `Procfile.dev` and your `Rakefile`. You will also need
+to create your own view helpers for linking your assets.
 
 By default, to build your site you run the builder, usually inside a Rakefile:
 
