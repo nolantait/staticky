@@ -24,7 +24,7 @@ module Staticky
       view_context = ViewContext.new(**kwargs)
       output_dir = Pathname.new(output_dir).expand_path
 
-      Pathname.glob(@path.join("**/*")).each do |file|
+      Pathname.glob(@path.join("**/*"), File::FNM_DOTMATCH).each do |file|
         build_file(file:, output_dir:, view_context:)
       end
     end

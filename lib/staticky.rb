@@ -7,7 +7,9 @@ require "dry/logger"
 require "uri"
 require "tilt"
 
-Staticky::GEM_ROOT = Pathname.new(__dir__).join("..").expand_path
+module Staticky
+  GEM_ROOT = Pathname.new(__dir__).join("..").expand_path
+end
 
 require_relative "staticky/container"
 
