@@ -4,6 +4,10 @@ require "phlex"
 require "dry/system"
 require "dry/configurable"
 require "dry/logger"
+require "uri"
+require "tilt"
+
+Staticky::GEM_ROOT = Pathname.new(__dir__).join("..").expand_path
 
 require_relative "staticky/container"
 
@@ -36,6 +40,7 @@ module Staticky
   def resources = router.resources
   def router = container[:router]
   def builder = container[:builder]
+  def generator = container[:generator]
   def container = Container
 
   def env
