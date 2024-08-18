@@ -3,28 +3,53 @@
 This is a minimal static site builder with [phlex](https://phlex.fun) and
 [protos](https://github.com/inhouse-work/protos) component library.
 
+[Vite](https://vite-ruby.netlify.app/) handles your javascript and your
+assets by default and hooks into the build command defined in your `Rakefile`
+
+Your development server runs with `bin/dev`
+
 Everything is ruby, there is no html or erb. It outputs a static site to the
-`build/` folder.
+`build/` folder by default, but that can be configured.
 
 ## Usage
 
+First we need to install `staticky` if you have not already:
+
 ```
-git clone https://github.com/nolantait/static-starter
-cd static-starter
-bin/setup
+gem install staticky
+```
+
+Then we can use the CLI to generate a new template:
+
+```
+staticky new my_blog
+```
+
+Finally cd into your new site and run the development server:
+
+```
+cd my_blog
 bin/dev
 ```
 
+Your site should not be accessible at http://localhost:9292
+
 ## Building
 
-When your site it built with `bin/rake site:build` it will output everything
-defined in your `config/routes` as well as anything in `public/` into `build/`.
-You can then serve these using something like nginx.
+During development `rerun` watches your files and rebuilds the site when they
+change by running `bin/rake site:build`. These files are served by a Roda app.
+
+In production you simply output the files to a folder and serve them statically
+on your website. We have included a `Dockerfile` with a working nginx setup that
+can be tweaked however you like.
+
+Building takes all the definitions inside your `config/routes` and outputs
+static files to `./build` or wherever you have configured it.
 
 ## Views
 
-Views are defined in `app/pages` and `app/layouts`. `app/components` are for
-your general components that many pages or layouts might use.
+Views are defined in `app/views`. They should be phlex components and you can
+choose how to render them inside your router.
 
 ## Javascript
 
@@ -33,7 +58,7 @@ All javascript and images are handled via [Vite](https://vite-ruby.netlify.app/)
 ## Router
 
 Your routes are defined in `config/routes.rb` and determine the output for your
-site. Everything gets built into the `build/` folder by default.
+site. Everything gets built into the `./build` folder by default.
 
 Here is an example of loading content for a blog:
 
