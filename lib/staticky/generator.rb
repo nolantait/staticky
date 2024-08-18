@@ -25,24 +25,37 @@ module Staticky
       output_dir = Pathname.new(output_dir).expand_path
 
       Pathname.glob(@path.join("**/*")).each do |file|
-        next if file.directory?
-
-        output_path = file.relative_path_from(@path)
-
-        destination, output = if file.extname == ".erb"
-          template = Tilt.new(file)
-          content = template.render(view_context)
-          output_path = output_path.sub_ext("")
-          output_path = output_path.sub_ext(".rb") if output_path.extname.empty?
-          destination = output_dir.join(output_path)
-          [destination, content]
-        else
-          destination = output_path.join(file.relative_path_from(@path))
-          [destination, file.read]
-        end
-
-        files.write(destination, output)
+        build_file(file:, output_dir:, view_context:)
       end
+    end
+
+    private
+
+    def build_file(file:, output_dir:, view_context:)
+      return if file.directory?
+
+      relative_path = file.relative_path_from(@path)
+      target = output_dir.join(relative_path)
+
+      # This handles files like:
+      # - index.html.erb -> index.html
+      # - site.erb -> site.rb
+      if target.extname == ".erb"
+        target = target.sub_ext("")
+        target = target.sub_ext(".rb") if target.extname == ""
+      end
+
+      build_template(file:, target:, view_context:)
+    end
+
+    def build_template(file:, target:, view_context:)
+      files.write(target, render_template(file, view_context))
+    end
+
+    def render_template(file, view_context)
+      return file.read unless file.extname == ".erb"
+
+      Tilt::ERBTemplate.new(file).render(view_context)
     end
   end
 end

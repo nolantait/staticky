@@ -8,9 +8,10 @@ RSpec.describe Staticky::Generator do
       "/tmp/site",
       title: "My Site",
       description: "My Site Description",
-      url: "https://example.com",
+      url: "https://example.com"
     )
 
     expect(files.exist?("/tmp/site/config/site.rb")).to be(true)
+    expect(files.exist?("/tmp/site/Dockerfile")).to be(true)
   end
 end
