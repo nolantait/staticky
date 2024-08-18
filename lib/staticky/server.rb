@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "roda"
-require "tilt"
 
 require_relative "../staticky"
 

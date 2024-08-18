@@ -6,6 +6,3 @@ inherit_gem:
   rubocop-inhouse:
     - config/default.yml
     - config/capybara.yml
-
-AllCops:
-  TargetRubyVersion: 3.3

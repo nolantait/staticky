@@ -1,0 +1,3 @@
+server: bin/bundle exec rackup
+builder: rerun --dir app,lib,content --exit --verbose -- bin/rake site:build
+vite: bin/vite dev

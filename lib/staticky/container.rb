@@ -21,5 +21,6 @@ module Staticky
     register(:files, Staticky::Filesystem.real)
     register(:router, Staticky::Router.new)
     register(:builder, Staticky::Builder.new)
+    register(:generator, Staticky::Generator.new)
   end
 end
