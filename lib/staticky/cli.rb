@@ -43,10 +43,10 @@ module Staticky
                desc: "Twitter handle",
                aliases: ["-t"]
 
-        def call(path:, **options)
+        def call(path:, **)
           path = Pathname.new(path).expand_path
 
-          Staticky.generator.call(path, **options)
+          Staticky.generator.call(path, **)
 
           commands = [
             "bundle install",

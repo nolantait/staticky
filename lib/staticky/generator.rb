@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Staticky
   class Generator
     include Deps[:files]
@@ -20,8 +22,8 @@ module Staticky
       @path = GEM_ROOT.join("site_template")
     end
 
-    def call(output_dir, **kwargs)
-      view_context = ViewContext.new(**kwargs)
+    def call(output_dir, **)
+      view_context = ViewContext.new(**)
       output_dir = Pathname.new(output_dir).expand_path
 
       Pathname.glob(@path.join("**/*"), File::FNM_DOTMATCH).each do |file|

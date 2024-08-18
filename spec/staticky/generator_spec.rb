@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Staticky::Generator do
   it "generates the site" do
     files = Staticky::Filesystem.test
