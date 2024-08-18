@@ -13,9 +13,7 @@ I am using this at https://taintedcoders.com. (soon)
 - Hot reloading in development with Roda serving static files
 - Docker deployment with NGINX
 
-You can find a working setup in the `static-starter` repo:
-
-https://github.com/nolantait/static-starter
+You can find a working setup in `site_template` folder.
 
 ## Installation
 
@@ -29,7 +27,17 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-Use the router to define how your content maps to routes:
+First you can use the CLI to generate a new template:
+
+```
+staticky new my_blog --url "https://example.com"
+```
+
+This will generate a new site at `./my_blog`, install your dependencies and run
+`rspec` just to make sure everything got set up correctly.
+
+Once your site is generated you can use the router to define how your content
+maps to routes in `config/routes.rb`:
 
 ```ruby
 Staticky.router.define do
@@ -44,8 +52,11 @@ Staticky.router.define do
 end
 ```
 
-Each route takes a Phlex component. Here we are using
-a [protos](https://github.com/inhouse-work/protos) component:
+Each route takes a Phlex component. We can either pass the class for a default
+initialization (we just call `.new`) or initialize it ourselves.
+
+Here we are using a [protos](https://github.com/inhouse-work/protos) component,
+but you can use plain old Phlex components if you like.
 
 ```ruby
 module Posts
@@ -83,26 +94,50 @@ module Posts
 end
 ```
 
-To build your site you run the builder, usually inside a Rakefile:
+When you are developing your site you run `bin/dev` to start your development
+server on `https://localhost:9292`. This will automatically reload after a short
+period when you make changes.
+
+Assets are handled by Vite by default, but you can have whatever build process
+you like just by tweaking `Procfile.dev` and your `Rakefile`
+
+By default, to build your site you run the builder, usually inside a Rakefile:
 
 ```ruby
-# frozen_string_literal: true
+require "vite_ruby"
+
+ViteRuby.install_tasks
 
 desc "Precompile assets"
 task :environment do
   require "./config/boot"
 end
 
-namespace :assets do
+namespace :site do
   desc "Precompile assets"
-  task precompile: :environment do
+  task build: :environment do
+    Rake::Task["vite:build"].invoke
     Staticky::Builder.call
   end
 end
 ```
 
-Doing it through `assets:precompile` makes it easily integrate with Vite without
-much setup.
+This will output your site to `./build` by default.
+
+## Configuration
+
+We can override the configuration according to the settings defined on the main
+module:
+
+```ruby
+Staticky.configure do |config|
+  config.env = :test
+  config.build_path = Pathname.new("dist")
+  config.root_path = Pathname(__dir__)
+  config.logger = Logger.new($stdout)
+  config.server_logger = Logger.new($stdout)
+end
+```
 
 ## Development
 
