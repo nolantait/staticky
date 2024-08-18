@@ -7,4 +7,6 @@ module Site
   def description = "<%= description %>"
   def twitter = "<%= twitter %>"
   def url = "<%= url %>"
+
+  def url_for(path) = URI.join(url, path)
 end

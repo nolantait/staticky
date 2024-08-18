@@ -5,6 +5,15 @@ require "staticky/phlex/view_helpers"
 class Component < Protos::Component
   include ViteHelpers
 
+  class NullViewContext
+    def root? = true
+    def current_path = "/"
+  end
+
+  def helpers
+    @_view_context ||= NullViewContext.new # rubocop:disable Naming/MemoizedInstanceVariableName
+  end
+
   def asset_path(...)
     vite_asset_path(...)
   end

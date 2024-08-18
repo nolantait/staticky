@@ -51,7 +51,9 @@ module Staticky
 
           commands = [
             "bundle install",
-            "bundle binstubs bundler rake rspec-core vite_ruby"
+            "bundle binstubs bundler rake rspec-core vite_ruby",
+            "yarn install",
+            "bin/rspec"
           ].join(" && ")
 
           system(commands, chdir: path) || abort("install failed")
