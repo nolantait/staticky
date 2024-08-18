@@ -70,6 +70,8 @@ module Posts
     end
 
     def view_template
+      link_to "Home", "/"
+
       render Posts::Header.new(@post)
       render Posts::Outline.new(@post, class: css[:outline])
       render Posts::Markdown.new(@post, class: css[:post])
@@ -95,6 +97,9 @@ module Posts
   end
 end
 ```
+
+We get `link_to` from the `Staticky::Phlex::ViewHelpers` which resolves either
+a URL or a phlex class from your router.
 
 When you are developing your site you run `bin/dev` to start your development
 server on http://localhost:9292. This will automatically reload after a short
@@ -126,6 +131,14 @@ end
 ```
 
 This will output your site to `./build` by default.
+
+During building, each definition in the router is compiled and handed a special
+view context which holds information about the resource being rendered such as
+the `current_path`.
+
+These are available in your Phlex components under `helpers` (if you are using
+the site template). This matches what you might expect when using Phlex in
+Rails with `phlex-rails`.
 
 ## Configuration
 
