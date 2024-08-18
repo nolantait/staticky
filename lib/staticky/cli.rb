@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "dry/cli"
+require "debug"
 
 module Staticky
   module CLI
@@ -44,7 +45,16 @@ module Staticky
                aliases: ["-t"]
 
         def call(path:, **options)
+          path = Pathname.new(path).expand_path
+
           Staticky.generator.call(path, **options)
+
+          commands = [
+            "bundle install",
+            "bundle binstubs bundler rake rspec-core vite_ruby"
+          ].join(" && ")
+
+          system(commands, chdir: path) || abort("install failed")
         end
       end
 
