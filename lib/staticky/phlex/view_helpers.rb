@@ -5,7 +5,8 @@ module Staticky
     module ViewHelpers
       def link_to(text, href, **, &block) # rubocop:disable Metrics/ParameterLists
         block ||= proc { text }
-        href = Staticky.router.resolve(href).url
+        href = Staticky.router.resolve(href)
+        href = href.url unless href.is_a?(String)
 
         a(href:, **, &block)
       end
