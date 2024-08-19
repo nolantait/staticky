@@ -6,7 +6,7 @@ module Layouts
 
     def view_template
       doctype
-      html lang: "en_US", data: { theme: "onedark" } do
+      html lang: "en", data: { theme: "onedark" } do
         render Layouts::Head.new(&head)
 
         body do
