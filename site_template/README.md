@@ -96,3 +96,7 @@ The router is your definition for how to build your static site.
 
 Deployment is done through a simple Dockerfile. This setup is optimized for
 deploying onto Dokku servers.
+
+By default Dokku expects the app to be exposed on port 5000 which we do through
+our Dockerfile. Dokku will scan the Dockerfile for an `EXPOSE` directive and
+automatically setup the port routing for you.

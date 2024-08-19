@@ -40,8 +40,8 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Copy the static site files to the Nginx HTML directory
 COPY --from=builder /app/build /usr/share/nginx/html/
 
-# Expose port 80 to the Docker host
-EXPOSE 80
+# Expose port to the Docker host (default is 5000 for dokku)
+EXPOSE 5000
 
 # Start Nginx when the container launches
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-c", "/etc/nginx/nginx.conf"]
