@@ -5,6 +5,7 @@ module Layouts
     include Phlex::DeferredRender
 
     def view_template
+      doctype
       html lang: "en_US", data: { theme: "onedark" } do
         render Layouts::Head.new(&head)
 
