@@ -5,6 +5,8 @@ ENV["RACK_ENV"] ||= "development"
 require "bundler"
 Bundler.require(:default, ENV.fetch("RACK_ENV", nil))
 
+require_relative "staticky"
+
 loader = Zeitwerk::Loader.new
 loader.inflector.inflect("ui" => "UI")
 loader.push_dir("lib")
