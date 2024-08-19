@@ -14,6 +14,7 @@ module Staticky
 
     plugin :common_logger, Staticky.server_logger, method: :debug
     plugin :render, engine: "html"
+    plugin :public
 
     plugin :not_found do
       raise NotFound if Staticky.env.test?
@@ -41,8 +42,7 @@ module Staticky
         end
       end
 
-      # Need to return nil or Roda is unhappy
-      nil
+      r.public
     end
   end
 end
