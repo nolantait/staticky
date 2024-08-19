@@ -29,6 +29,9 @@ module Staticky
     end
 
     def resolve(path)
+      # Return absolute paths as is
+      return path if path.is_a?(String) && path.start_with?("http")
+
       @definition.resolve(path)
     end
   end
