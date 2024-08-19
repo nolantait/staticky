@@ -4,7 +4,7 @@ module UI
   class Navbar < Component
     def view_template
       header(**attrs) do
-        a(href: "/", class: "btn btn-ghost") { "MyApp" }
+        a(href: "/", class: "btn btn-ghost") { Site.title }
       end
     end
 
