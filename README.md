@@ -36,6 +36,37 @@ staticky new my_blog --url "https://example.com"
 This will generate a new site at `./my_blog`, install your dependencies and run
 `rspec` just to make sure everything got set up correctly.
 
+You can append `--help` to any commands to see info:
+
+```
+staticky new --help
+```
+
+Which outputs:
+
+```
+Command:
+  staticky new
+
+Usage:
+  staticky new PATH
+
+Description:
+  Create new site
+
+Arguments:
+  PATH                              # REQUIRED Relative path where the site will be generated
+
+Options:
+  --url=VALUE, -u VALUE             # Site URL, default: "https://example.com"
+  --title=VALUE, -t VALUE           # Site title, default: "Example"
+  --description=VALUE, -d VALUE     # Site description, default: "Example site"
+  --twitter=VALUE, -t VALUE         # Twitter handle, default: ""
+  --help, -h                        # Print this help
+```
+
+### Routing
+
 Once your site is generated you can use the router to define how your content
 maps to routes in `config/routes.rb`:
 
@@ -56,6 +87,8 @@ Each route takes a Phlex component (or any object that outputs a string from
 `#call`). We can either pass the class for a default initialization (we just
 call `.new`) or initialize it ourselves.
 
+### Linking to your routes
+
 Here is an example of what the `Posts::Show` component might look like. We are
 using a [protos](https://github.com/inhouse-work/protos) component, but you can
 use plain old Phlex components if you like.
@@ -70,7 +103,12 @@ module Posts
     end
 
     def view_template
-      link_to "Home", "/"
+      # Links can be resolved to component classes:
+      link_to "Home", Pages::Home
+      # They can also resolve via their url:
+      link_to "Posts", "/posts"
+      # Absolute links are resolved as is:
+      link_to "Email", "mailto:email@example.com"
 
       render Posts::Header.new(@post)
       render Posts::Outline.new(@post, class: css[:outline])
@@ -82,16 +120,9 @@ module Posts
 
     def theme
       {
-        layout: "mr-0 lg:mr-[--sidebar-width] md:ml-[--sidebar-width]",
-        outline: %w[
-          my-md
-          md:fixed
-          md:left-0
-          md:top-[--navbar-height]
-          md:pl-[--viewport-padding]
-          md:w-[--sidebar-width]
-        ],
-        post: "prose mx-auto pb-lg"
+        layout: "bg-background",
+        outline: "border",
+        post: "max-w-prose mx-auto"
       }
     end
   end
@@ -101,9 +132,11 @@ end
 We get `link_to` from the `Staticky::Phlex::ViewHelpers` which resolves either
 a URL or a phlex class from your router.
 
+### Building your site
+
 When you are developing your site you run `bin/dev` to start your development
-server on http://localhost:9292. This will automatically reload after a short
-period when you make changes.
+server on [http://localhost:9292](http://localhost:9292).
+This will automatically reload after a short period when you make changes.
 
 Assets are handled by Vite by default, but you can have whatever build process
 you like just by tweaking `Procfile.dev` and your `Rakefile`. You will also need
