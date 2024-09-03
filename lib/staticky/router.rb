@@ -16,18 +16,13 @@ module Staticky
       @definition = Staticky::Router::Definition.new
     end
 
+    def filepaths = @definition.filepaths
+    def resources = @definition.resources
+
     def define(&block)
       tap do
         @definition.instance_eval(&block)
       end
-    end
-
-    def filepaths
-      @definition.filepaths
-    end
-
-    def resources
-      @definition.resources
     end
 
     def resolve(path)
