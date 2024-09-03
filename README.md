@@ -89,13 +89,25 @@ call `.new`) or initialize it ourselves.
 
 ### Linking to your routes
 
+First you need to include the view helpers somewhere in your component
+hierarchy:
+
+```ruby
+class Component < Phlex::HTML
+  include Staticky::Phlex::ViewHelpers
+end
+```
+
+This will add `link_to` to all your components which uses the router to resolve
+any URLs via their path.
+
 Here is an example of what the `Posts::Show` component might look like. We are
 using a [protos](https://github.com/inhouse-work/protos) component, but you can
 use plain old Phlex components if you like.
 
 ```ruby
 module Posts
-  class Show < Protos::Component
+  class Show < Component
     param :post, reader: false
 
     def around_template(&)
@@ -103,7 +115,7 @@ module Posts
     end
 
     def view_template
-      # Links can be resolved to component classes:
+      # Links can be resolved to component classes if they are unique:
       link_to "Home", Pages::Home
       # They can also resolve via their url:
       link_to "Posts", "/posts"
@@ -129,8 +141,9 @@ module Posts
 end
 ```
 
-We get `link_to` from the `Staticky::Phlex::ViewHelpers` which resolves either
-a URL or a phlex class from your router.
+The advantage of using `link_to` over plain old `a` tags is that changes to your
+routes will raise errors on invalidated links instead of silently
+linking to invalid pages.
 
 ### Building your site
 
