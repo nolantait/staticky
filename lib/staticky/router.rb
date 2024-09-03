@@ -10,7 +10,7 @@ module Staticky
     # In Staticky when we build we need to do a lot of introspection to link
     # routes to resources on the file system.
 
-    ABSOLUTE_PREFIXES = %w[http mailto].freeze
+    Error = Class.new(Staticky::Error)
 
     def initialize
       @definition = Staticky::Router::Definition.new
@@ -31,10 +31,13 @@ module Staticky
     end
 
     def resolve(path)
+      uri = URI(path)
       # Return absolute paths as is
-      return path if path.is_a?(String) && path.start_with?(*ABSOLUTE_PREFIXES)
+      return path if uri.absolute?
 
       @definition.resolve(path)
+    rescue URI::InvalidURIError
+      raise Error, "Path #{path} is not a valid URI"
     end
   end
 end

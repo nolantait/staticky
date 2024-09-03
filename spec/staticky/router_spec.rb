@@ -25,4 +25,14 @@ RSpec.describe Staticky::Router do
   it "resolves mailto urls" do
     expect(router.resolve("mailto:email@example.com")).to eq("mailto:email@example.com")
   end
+
+  it "handles invalid urls" do
+    expect { router.resolve("\\invalid") }
+      .to raise_error(Staticky::Router::Error)
+  end
+
+  it "handles unresolved urls" do
+    expect { router.resolve("/unresolved") }
+      .to raise_error(Staticky::Router::Error)
+  end
 end

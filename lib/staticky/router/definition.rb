@@ -27,6 +27,8 @@ module Staticky
 
       def resolve(path)
         @routes_by_path.fetch(path) { @routes_by_component.fetch(path) }
+      rescue KeyError
+        raise Staticky::Router::Error, "No route matches #{path}"
       end
 
       def delete(path)
