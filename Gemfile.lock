@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    staticky (0.1.0)
+    staticky (0.1.1)
       dry-cli (~> 1.1)
       dry-configurable (~> 1.2)
       dry-events (~> 1.0)
