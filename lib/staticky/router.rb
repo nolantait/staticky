@@ -10,6 +10,8 @@ module Staticky
     # In Staticky when we build we need to do a lot of introspection to link
     # routes to resources on the file system.
 
+    ABSOLUTE_PREFIXES = %w[http mailto].freeze
+
     def initialize
       @definition = Staticky::Router::Definition.new
     end
@@ -30,7 +32,7 @@ module Staticky
 
     def resolve(path)
       # Return absolute paths as is
-      return path if path.is_a?(String) && path.start_with?("http")
+      return path if path.is_a?(String) && path.start_with?(*ABSOLUTE_PREFIXES)
 
       @definition.resolve(path)
     end
