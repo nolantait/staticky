@@ -18,6 +18,10 @@ RSpec.describe Staticky::Router do
     expect(router.filepaths).to include("index.html", "hello.html")
   end
 
+  it "resolves a component class" do
+    expect(router.resolve(TestComponent).component).to be_a(TestComponent)
+  end
+
   it "resolves absolute urls" do
     expect(router.resolve("https://example.com")).to eq("https://example.com")
   end

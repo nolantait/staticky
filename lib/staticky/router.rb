@@ -26,6 +26,8 @@ module Staticky
     end
 
     def resolve(path)
+      return @definition.resolve(path) if path.is_a?(Class)
+
       uri = URI(path)
       # Return absolute paths as is
       return path if uri.absolute?
