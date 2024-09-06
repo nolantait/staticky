@@ -16,6 +16,8 @@ module Staticky
         component = ensure_instance(to)
         @resources << resource = Resource.new(url: path, component:)
         index_resource(path, resource)
+      rescue URI::InvalidURIError
+        raise Staticky::Router::Error, "Path #{path} is not a valid URI"
       end
 
       def root(to:)

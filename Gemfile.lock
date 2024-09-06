@@ -95,6 +95,9 @@ GEM
       ast (~> 2.4.1)
       racc
     phlex (1.11.0)
+    phlex-testing-capybara (0.1.0)
+      capybara (~> 3.38)
+      phlex (>= 0.5)
     psych (5.1.2)
       stringio
     public_suffix (6.0.1)
@@ -187,6 +190,7 @@ PLATFORMS
 DEPENDENCIES
   capybara
   debug
+  phlex-testing-capybara
   rake
   rspec
   rubocop-inhouse

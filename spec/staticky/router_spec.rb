@@ -15,6 +15,7 @@ RSpec.describe Staticky::Router do
   it "defines routes" do
     expect(router.resolve("/").component).to be_a(TestComponent)
     expect(router.resolve("hello").component).to be_a(TestComponent)
+    expect(router.resolve("/hello").component).to be_a(TestComponent)
     expect(router.filepaths).to include("index.html", "hello.html")
   end
 

@@ -7,6 +7,7 @@ gemspec
 
 gem "capybara"
 gem "debug"
+gem "phlex-testing-capybara"
 gem "rake"
 gem "rspec"
 gem "rubocop-inhouse", require: false

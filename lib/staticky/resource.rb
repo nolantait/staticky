@@ -6,6 +6,12 @@ module Staticky
       Staticky.build_path.join(filepath)
     end
 
+    def uri
+      URI(url).tap do |uri|
+        uri.path = "/#{uri.path}" unless uri.path.start_with?("/")
+      end
+    end
+
     def read
       full_filepath.read
     end

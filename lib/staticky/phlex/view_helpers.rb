@@ -3,10 +3,10 @@
 module Staticky
   module Phlex
     module ViewHelpers
-      def link_to(text, href, **, &block) # rubocop:disable Metrics/ParameterLists
+      def link_to(text = nil, href, **, &block) # rubocop:disable Metrics/ParameterLists
         block ||= proc { text }
         href = Staticky.router.resolve(href)
-        href = href.url unless href.is_a?(String)
+        href = href.uri.to_s unless href.is_a?(String)
 
         a(href:, **, &block)
       end

@@ -4,6 +4,8 @@ require "debug"
 require "staticky"
 require "dry/system/stubs"
 
+require "phlex/testing/capybara"
+
 Staticky.configure do |config|
   config.root_path = Pathname.new(__dir__).join("fixtures")
   config.build_path = Pathname.new(__dir__).join("fixtures/build")
@@ -24,4 +26,6 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.include Phlex::Testing::Capybara::ViewHelper, type: :view
 end

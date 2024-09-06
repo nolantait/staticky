@@ -32,7 +32,9 @@ module Staticky
       # Return absolute paths as is
       return path if uri.absolute?
 
-      @definition.resolve(path)
+      uri.path = uri.path[1..] if uri.path.size > 1 && uri.path.start_with?("/")
+
+      @definition.resolve(uri.path)
     rescue URI::InvalidURIError
       raise Error, "Path #{path} is not a valid URI"
     end
