@@ -26,6 +26,7 @@ module Staticky
     end
 
     def resolve(path)
+      return path if path.is_a?(String) && path.start_with?("#")
       return @definition.resolve(path) if path.is_a?(Class)
 
       uri = URI(path)

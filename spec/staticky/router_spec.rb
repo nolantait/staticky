@@ -23,6 +23,10 @@ RSpec.describe Staticky::Router do
     expect(router.resolve(TestComponent).component).to be_a(TestComponent)
   end
 
+  it "resolves anchor urls" do
+    expect(router.resolve("#anchor")).to eq("#anchor")
+  end
+
   it "resolves absolute urls" do
     expect(router.resolve("https://example.com")).to eq("https://example.com")
   end
