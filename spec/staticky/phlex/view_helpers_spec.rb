@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Staticky::Phlex::ViewHelpers, type: :view do
   before do
     stub_const(

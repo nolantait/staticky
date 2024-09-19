@@ -28,11 +28,11 @@ module Layouts
     private
 
     def content
-      @content || proc {}
+      @content || proc { }
     end
 
     def head
-      @head || proc {}
+      @head || proc { }
     end
   end
 end

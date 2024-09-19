@@ -2,7 +2,7 @@
 
 class Icon < Component
   param :name, reader: false
-  option :variant, reader: false, default: -> {}
+  option :variant, reader: false, default: -> { }
   option :size, default: -> { :md }, reader: false
 
   def template
