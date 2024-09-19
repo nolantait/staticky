@@ -16,7 +16,11 @@ RSpec.describe Staticky::Router do
     expect(router.resolve("/").component).to be_a(TestComponent)
     expect(router.resolve("hello").component).to be_a(TestComponent)
     expect(router.resolve("/hello").component).to be_a(TestComponent)
-    expect(router.filepaths).to include("index.html", "hello.html")
+  end
+
+  it "returns the expected filepaths" do
+    filepaths = router.filepaths.map { |path| path.basename.to_s }
+    expect(filepaths).to include("index.html", "hello.html")
   end
 
   it "resolves a component class" do

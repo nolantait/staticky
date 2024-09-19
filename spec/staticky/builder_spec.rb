@@ -1,6 +1,18 @@
 # frozen_string_literal: true
 
 RSpec.describe Staticky::Builder do
+  before do
+    stub_const(
+      "TestComponent", Class.new(Phlex::HTML) do
+        def view_template = plain("Hello world")
+      end
+    )
+
+    Staticky.router.define do
+      root to: TestComponent
+    end
+  end
+
   it "compiles the homepage" do
     files = Staticky::Container[:files]
     files.touch(Staticky.root_path.join("public/favicon.ico"))

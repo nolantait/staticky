@@ -5,17 +5,21 @@ require "capybara/rspec"
 
 require "staticky/server"
 
-TestComponent = Class.new(Phlex::HTML) do
-  def view_template = plain("Hello world")
-end
-
-Staticky.router.define do
-  root to: TestComponent
-end
-
-Capybara.app = Staticky::Server.app.freeze
-
 RSpec.describe Staticky::Server, type: :feature do
+  before do
+    stub_const(
+      "TestComponent", Class.new(Phlex::HTML) do
+        def view_template = plain("Hello world")
+      end
+    )
+
+    Staticky.router.define do
+      root to: TestComponent
+    end
+
+    Capybara.app = described_class.app.freeze
+  end
+
   it "boots up the app" do
     visit "/"
 

@@ -2,7 +2,6 @@
 
 module Staticky
   class Container < Dry::System::Container
-    use :env
     use :zeitwerk
     use :monitoring
 

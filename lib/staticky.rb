@@ -35,7 +35,7 @@ module Staticky
   )
 
   def monitor(...) = container.monitor(...)
-  def server_logger =config.server_logger
+  def server_logger = config.server_logger
   def logger = config.logger
   def build_path = config.build_path
   def root_path = config.root_path
@@ -46,6 +46,6 @@ module Staticky
   def container = Container
 
   def env
-    @env ||= Environment.new container.env
+    Environment.new config.env
   end
 end

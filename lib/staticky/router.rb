@@ -21,6 +21,7 @@ module Staticky
 
     def define(&block)
       tap do
+        @definition = Staticky::Router::Definition.new
         @definition.instance_eval(&block)
       end
     end

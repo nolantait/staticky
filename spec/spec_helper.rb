@@ -14,8 +14,6 @@ end
 
 Staticky.container.enable_stubs!
 
-Staticky.container.stub(:files, Staticky::Filesystem.test)
-
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
@@ -25,6 +23,10 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  config.before do
+    Staticky.container.stub(:files, Staticky::Filesystem.test)
   end
 
   config.include Phlex::Testing::Capybara::ViewHelper, type: :view
