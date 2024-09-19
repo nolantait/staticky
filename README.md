@@ -141,11 +141,24 @@ Then we could view our resources:
   @url="bar">]
 ```
 
+Resources have the following methods:
+
+|Method|Description|
+|------|-----------|
+|`filepath`|`Pathname` of where the component's output will be written to|
+|`read`|Read the output of the resource from the file system|
+|`basename`|The file basename (e.g. `index.html`) for the resource|
+|`root?`|Whether or not the resource is the root path|
+|`build`|Call the component and output its result as a string|
+
+These resources are used by your site builder to output the files that end up in
+the `Staticky.build_path`.
+
 Each resource has a `#build` method that calls the Phlex component you provide
 and passes in a `ViewContext` just like `ActionView` in Rails. But this context
 is tailored towards your static site.
 
-Currently it contains just two methods:
+Currently the `Staticky::ViewContext` it contains just two methods:
 
 |Method|Description|
 |------|-----------|
