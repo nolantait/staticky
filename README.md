@@ -87,6 +87,74 @@ Each route takes a Phlex component (or any object that outputs a string from
 `#call`). We can either pass the class for a default initialization (we just
 call `.new`) or initialize it ourselves.
 
+#### Match
+
+This works in a similar way to your Rails routes. Match takes a path and
+a component (either a class or an instance) that it will route to.
+
+```ruby
+match "404", to: Errors::NotFound
+```
+
+#### Root
+
+Using `match` you can define a root path like:
+
+```ruby
+match "/", to: Pages::Home
+```
+
+For convenience you can shorten this using `root`:
+
+```ruby
+root to: Pages::Home
+```
+
+### Resources
+
+Routes define your resources, which are objects that contain all the information
+required to produce the static file that eventually outputs to your
+`Staticky.build_path`.
+
+Lets say we had a router defined like:
+
+```ruby
+Staticky.router.define do
+  match "foo", to: Component
+  match "bar", to: Component
+end
+```
+
+Then we could view our resources:
+
+```
+(ruby) Staticky.resources
+[#<Staticky::Resource:0x0000711525d82c18
+  @component=#<Component:0x0000711525d74848>,
+  @destination=#<Pathname:/your-site-folder/build>,
+  @uri=#<URI::Generic /foo>,
+  @url="foo">,
+ #<Staticky::Resource:0x0000711525d82a88
+  @component=#<Component:0x0000711525d74208>,
+  @destination=#<Pathname:/your-site-folder/build>,
+  @uri=#<URI::Generic /bar>,
+  @url="bar">]
+```
+
+Each resource has a `#build` method that calls the Phlex component you provide
+and passes in a `ViewContext` just like `ActionView` in Rails. But this context
+is tailored towards your static site.
+
+Currently it contains just two methods:
+
+|Method|Description|
+|------|-----------|
+|`root?`|Whether or not this resource is for the root page|
+|`current_path`|The path of the current resource being rendered|
+
+These are useful for creating pages that hide or show content depending on which
+path of the site we are building.
+
 ### Linking to your routes
 
 First you need to include the view helpers somewhere in your component
@@ -145,6 +213,19 @@ The advantage of using `link_to` over plain old `a` tags is that changes to your
 routes will raise errors on invalidated links instead of silently
 linking to invalid pages.
 
+If your component is unique then you can link directly to them (if its not
+unique then it will link to the last defined `match`):
+
+```ruby
+link_to("Some link", Pages::Home)
+```
+
+Otherwise you can link to the path itself:
+
+```ruby
+link_to("Some link", "/")
+```
+
 ### Building your site
 
 When you are developing your site you run `bin/dev` to start your development
@@ -198,6 +279,24 @@ Staticky.configure do |config|
   config.root_path = Pathname(__dir__)
   config.logger = Logger.new($stdout)
   config.server_logger = Logger.new($stdout)
+end
+```
+
+### Environment
+
+You can define the environment of Staticky through its config.
+
+```ruby
+Staticky.configure do |config|
+  config.env = :test
+end
+```
+
+This lets you write environment specific code:
+
+```ruby
+if Staticky.env.test?
+  # Do something test specific
 end
 ```
 
