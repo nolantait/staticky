@@ -17,6 +17,7 @@ module Staticky
     plugin :public
 
     plugin :not_found do
+      debugger
       raise NotFound if Staticky.env.test?
 
       Staticky.build_path.join("404.html").read
@@ -30,7 +31,7 @@ module Staticky
 
     route do |r|
       Staticky.resources.each do |resource|
-        case resource.filepath
+        case resource.filepath.basename.to_s
         when "index.html"
           r.root do
             render(inline: resource.read)
