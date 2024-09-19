@@ -17,7 +17,6 @@ module Staticky
     plugin :public
 
     plugin :not_found do
-      debugger
       raise NotFound if Staticky.env.test?
 
       Staticky.build_path.join("404.html").read
