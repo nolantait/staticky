@@ -300,6 +300,42 @@ if Staticky.env.test?
 end
 ```
 
+## Testing
+
+We can setup a separate testing environment by putting the following
+into your `spec/spec_helper.rb`:
+
+```ruby
+Staticky.configure do |config|
+  config.root_path = Pathname.new(__dir__).join("fixtures")
+  config.build_path = Pathname.new(__dir__).join("fixtures/build")
+  config.env = :test
+end
+```
+
+This sets up our build path to something different than our development builds.
+
+Staticky uses `Dry::System` to manage its dependencies which means you can stub
+them out if you want:
+
+```ruby
+require "dry/system/stubs"
+
+Staticky.container.enable_stubs!
+
+RSpec.configure do |config|
+  config.before do
+    Staticky.container.stub(:files, Staticky::Filesystem.test)
+  end
+end
+```
+
+This lets you test your builds using `dry-files` (actually `staticky-files`, but
+the interface is the same with additional capabilities for file folders).
+
+The advantage of this is that we can perform our builds on a temporary in memory
+file system rather than actually writing to our disk.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run
