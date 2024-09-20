@@ -12,33 +12,22 @@ module Staticky
 
     Error = Class.new(Staticky::Error)
 
-    def initialize
-      @definition = Staticky::Router::Definition.new
-    end
-
-    def filepaths = @definition.filepaths
-    def resources = @definition.resources
-
-    def define(&block)
-      tap do
-        @definition = Staticky::Router::Definition.new
-        @definition.instance_eval(&block)
+    def self.plugin(plugin, ...)
+      plugin = Routing::Plugins.load_plugin(plugin) if plugin.is_a?(Symbol)
+      unless plugin.is_a?(Module)
+        raise ArgumentError, "Invalid plugin type: #{plugin.class.inspect}"
       end
+
+      if plugin.respond_to?(:load_dependencies)
+        plugin.load_dependencies(self, ...)
+      end
+
+      include plugin::InstanceMethods if defined?(plugin::InstanceMethods)
+      extend plugin::ClassMethods if defined?(plugin::ClassMethods)
+
+      plugin.configure(self, ...) if plugin.respond_to?(:configure)
     end
 
-    def resolve(path)
-      return path if path.is_a?(String) && path.start_with?("#")
-      return @definition.resolve(path) if path.is_a?(Class)
-
-      uri = URI(path)
-      # Return absolute paths as is
-      return path if uri.absolute?
-
-      uri.path = uri.path[1..] if uri.path.size > 1 && uri.path.start_with?("/")
-
-      @definition.resolve(uri.path)
-    rescue URI::InvalidURIError
-      raise Error, "Path #{path} is not a valid URI"
-    end
+    plugin :prelude
   end
 end
