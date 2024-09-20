@@ -35,6 +35,8 @@ module Staticky
           end
         end
       end
+
+      register_plugin(:phlex, Phlex)
     end
   end
 end

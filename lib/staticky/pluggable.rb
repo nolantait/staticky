@@ -8,7 +8,7 @@ module Staticky
       end
 
       def call(container, key)
-        container.fetch(key, @klass.load_staticky_plugin(key))
+        container.fetch(key.to_s).call
       end
     end
 
@@ -17,14 +17,8 @@ module Staticky
         resolve(key)
       end
 
-      def load_staticky_plugin(key)
-        inflector = Dry::Inflector.new
-        class_name = inflector.camelize(key)
-        inflector.constantize("#{namespace}::Plugins::#{class_name}")
-      end
-
       def register_plugin(key, klass)
-        register(key, klass)
+        register(key.to_s, klass)
       end
     end
 

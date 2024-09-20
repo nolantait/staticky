@@ -15,6 +15,12 @@ module Staticky
   GEM_ROOT = Pathname.new(__dir__).join("..").expand_path
 end
 
+require_relative "staticky/pluggable"
+require_relative "staticky/resources/plugins"
+require_relative "staticky/resources/plugins/prelude"
+require_relative "staticky/resources/plugins/phlex"
+require_relative "staticky/routing/plugins"
+require_relative "staticky/routing/plugins/prelude"
 require_relative "staticky/container"
 
 module Staticky

@@ -11,9 +11,12 @@ RSpec.describe Staticky::Resources::Plugins do
         end
       end
     )
+
+    described_class.register_plugin(:hello_world, HelloWorld)
+
     stub_const(
       "MyResource", Class.new(Staticky::Resource) do
-        plugin HelloWorld
+        plugin :hello_world
       end
     )
   end

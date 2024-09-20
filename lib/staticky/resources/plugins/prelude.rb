@@ -67,6 +67,8 @@ module Staticky
           end
         end
       end
+
+      register_plugin(:prelude, Prelude)
     end
   end
 end
