@@ -104,8 +104,6 @@ class MarkdownResource < ApplicationResource
 end
 ```
 
-
-
 Each plugin can define modules for:
 
 |Name|Description|
@@ -247,11 +245,13 @@ These resources are used by your site builder to output the files that end up in
 the `Staticky.build_path`.
 
 Each resource needs to have a `#build` method that creates a file in your build
-folder. The current default one takes phlex components and passes in
-a `ViewContext` just like `ActionView` in Rails. But this context is tailored
-towards your static site.
+folder.
 
-Currently the phlex view context contains just two methods:
+The `phlex` plugin will call your components with a `ViewContext` just like
+`ActionView` in Rails. But this context is tailored towards your static site.
+
+This view context is a `SimpleDelegator` to your resource with a few extra
+methods:
 
 |Method|Description|
 |------|-----------|

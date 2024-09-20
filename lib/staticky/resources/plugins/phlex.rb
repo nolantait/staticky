@@ -4,8 +4,9 @@ module Staticky
   module Resources
     module Plugins
       module Phlex
-        class ViewContext
+        class ViewContext < SimpleDelegator
           def initialize(resource)
+            super
             @resource = resource
           end
 
