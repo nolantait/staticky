@@ -91,8 +91,27 @@ module MyResourcePlugin
 end
 ```
 
-You can also define your own specific resources by subclassing and extending
-with your own plugins:
+In our own classes we can now reference our new plugin:
+
+```ruby
+class SomeResource < Staticky::Resource
+  plugin MyResourcePlugin
+end
+```
+
+Or, if we register the plugin with `register_plugin` we can just use our
+shorter symbol:
+
+```ruby
+Staticky::Resources::Plugins.register_plugin(:something, MyResourcePlugin)
+
+class SomeResource < Staticky::Resource
+  plugin :something
+end
+```
+
+This system lets you define your own specific resources by subclassing and
+extending with your own plugins:
 
 ```ruby
 class ApplicationResource < Staticky::Resource
@@ -441,6 +460,18 @@ the interface is the same with additional capabilities for file folders).
 
 The advantage of this is that we can perform our builds on a temporary in memory
 file system rather than actually writing to our disk.
+
+The plugins themselves can also be stubbed:
+
+```ruby
+RSpec.configure do |config|
+  config.before do
+    Staticky::Resources::Plugins.stub(:prelude, MyOwnResourcePlugin)
+    Staticky::Routing::Plugins.stub(:prelude, MyOwnRoutingPlugin)
+  end
+end
+
+```
 
 ## Development
 
