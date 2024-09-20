@@ -2,11 +2,19 @@
 
 module Staticky
   class Resource
-    attr_reader :url, :uri, :component
+    module ClassMethods
+      def new(**env)
+        super().tap do |resource|
+          env.each do |key, value|
+            resource.send(:"#{key}=", value)
+          end
+        end
+      end
+    end
 
     module InstanceMethods
       def filepath
-        @destination.join(basename)
+        destination.join(basename)
       end
 
       def read
@@ -21,8 +29,29 @@ module Staticky
         url == "/"
       end
 
-      def build(view_context: ViewContext.new(self))
-        component.call(view_context:)
+      def uri
+        raise ArgumentError, "url is required" unless defined?(@uri)
+
+        @uri
+      end
+
+      def destination
+        @destination ||= Staticky.build_path
+      end
+
+      def destination=(destination)
+        @destination = Pathname(destination)
+      end
+
+      def url
+        raise ArgumentError, "url is required" unless defined?(@url)
+
+        @url
+      end
+
+      def url=(url)
+        @url = url
+        @uri = parse_url(url)
       end
 
       private
@@ -31,6 +60,8 @@ module Staticky
         URI(url).tap do |uri|
           uri.path = "/#{uri.path}" unless uri.path.start_with?("/")
         end
+      rescue URI::InvalidURIError => e
+        raise ArgumentError, e.message
       end
     end
 
@@ -48,12 +79,5 @@ module Staticky
     end
 
     plugin self
-
-    def initialize(url, renderable, destination: Staticky.build_path, **options)
-      @url = url
-      @renderable = renderable
-      @destination = destination
-      @options = options
-    end
   end
 end

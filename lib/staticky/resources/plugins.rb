@@ -1,5 +1,5 @@
 module Staticky
-  class Resource
+  module Resources
     module Plugins
       def self.load_plugin(key)
       end

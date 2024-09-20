@@ -1,4 +1,4 @@
-RSpec.describe Staticky::Resource::Plugins do
+RSpec.describe Staticky::Resources::Plugins do
   before do
     stub_const("HelloWorld", Module.new)
     stub_const(
