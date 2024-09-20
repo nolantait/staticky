@@ -4,6 +4,9 @@ module Staticky
   class Resource
     def self.plugin(plugin, *, &block)
       plugin = Resources::Plugins.load_plugin(plugin) if plugin.is_a?(Symbol)
+      unless plugin.is_a?(Module)
+        raise ArgumentError, "Invalid plugin type: #{plugin.class.inspect}"
+      end
 
       if plugin.respond_to?(:load_dependencies)
         plugin.load_dependencies(self, *, &block)
