@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Staticky
   module Pluggable
     class Resolver < Dry::Container::Resolver
