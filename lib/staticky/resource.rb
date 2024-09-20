@@ -2,20 +2,20 @@
 
 module Staticky
   class Resource
-    def self.plugin(plugin, *, &block)
+    def self.plugin(plugin, ...)
       plugin = Resources::Plugins.load_plugin(plugin) if plugin.is_a?(Symbol)
       unless plugin.is_a?(Module)
         raise ArgumentError, "Invalid plugin type: #{plugin.class.inspect}"
       end
 
       if plugin.respond_to?(:load_dependencies)
-        plugin.load_dependencies(self, *, &block)
+        plugin.load_dependencies(self, ...)
       end
 
       include plugin::InstanceMethods if defined?(plugin::InstanceMethods)
       extend plugin::ClassMethods if defined?(plugin::ClassMethods)
 
-      plugin.configure(self, *, &block) if plugin.respond_to?(:configure)
+      plugin.configure(self, ...) if plugin.respond_to?(:configure)
     end
 
     plugin :prelude
