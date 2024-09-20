@@ -52,6 +52,7 @@ Gem::Specification.new do |spec|
   # Uncomment to register a new dependency of your gem
   spec.add_dependency "dry-cli", "~> 1.1"
   spec.add_dependency "dry-configurable", "~> 1.2"
+  spec.add_dependency "dry-container", "~> 0.11"
   spec.add_dependency "dry-events", "~> 1.0"
   spec.add_dependency "dry-inflector", "~> 1.1"
   spec.add_dependency "dry-logger", "~> 1.0"

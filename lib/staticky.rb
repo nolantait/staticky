@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "phlex"
+require "dry/container"
 require "dry/system"
 require "dry/configurable"
 require "dry/logger"
