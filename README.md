@@ -65,7 +65,74 @@ Options:
   --help, -h                        # Print this help
 ```
 
+### Plugins
+
+The router and resources use the plugin
+[pattern](https://janko.io/the-plugin-system-of-sequel-and-roda/)
+found in [Sequel](https://github.com/jeremyevans/sequel) and
+[Roda](https://github.com/jeremyevans/roda).
+
+This means you can easily extend each of them with plugins to fit the specific
+content of your site.
+
+```ruby
+module MyResourcePlugin
+  module InstanceMethods
+    def component=(component)
+      @component = component
+    end
+
+    def component
+      return @component if defined?(@component)
+
+      raise ArgumentError, "component is required"
+    end
+  end
+end
+```
+
+You can also define your own specific resources by subclassing and extending
+with your own plugins:
+
+```ruby
+class ApplicationResource < Staticky::Resource
+  plugin :minify_html
+end
+
+class MarkdownResource < ApplicationResource
+  plugin :markdown
+end
+```
+
+
+
+Each plugin can define modules for:
+
+|Name|Description|
+|----|-----------|
+|InstanceMethods|Get added as instance methods of the Resource|
+|ClassMethods|Get added as the class methods of the Resource|
+
+In addition you have methods you can define that let you hook into the resource
+that adds your plugins:
+
+|Name|Description|
+|----|-----------|
+|load_dependencies(plugin, ...)|Hook to load any other plugins required by this one|
+|configure(plugin, ...)|Hook for additional setup required on the class|
+
+
 ### Routing
+
+Your router is a plugin system that by default only has one plugin:
+
+```
+plugin :prelude
+```
+
+This gives you the `match` and `root` methods in your router. You can override
+or extend these methods yourself by redefining them (and optionally calling
+`super`) inside your own plugin or class that inherits from the router.
 
 Once your site is generated you can use the router to define how your content
 maps to routes in `config/routes.rb`:
@@ -112,12 +179,7 @@ root to: Pages::Home
 
 ### Resources
 
-Resources use the plugin
-[pattern](https://janko.io/the-plugin-system-of-sequel-and-roda/)
-found in [Sequel](https://github.com/jeremyevans/sequel) and
-[Roda](https://github.com/jeremyevans/roda).
-
-They initialize the same way ActiveModel objects do. That is they take their
+They initialize the same way `ActiveModel` objects do. That is they take their
 keywords and call the setter according to the keys:
 
 ```ruby
@@ -130,48 +192,11 @@ def new(**env)
 end
 ```
 
-This means that plugins can add attributes easily by providing getters and
-setters:
-
-```ruby
-module Staticky
-  module Resources
-    module Plugins
-      module Phlex
-        module InstanceMethods
-          def component=(component)
-            @component = component
-          end
-
-          def component
-            return @component if defined?(@component)
-
-            raise ArgumentError, "component is required"
-          end
-        end
-      end
-    end
-  end
-end
-```
-
 The base resource has two core plugins it includes by default:
 
 ```ruby
 plugin :prelude
 plugin :phlex
-```
-
-You can define your own specific resources and use your own plugins:
-
-```ruby
-class ApplicationResource < Staticky::Resource
-  plugin :minify_html
-end
-
-class MarkdownResource < ApplicationResource
-  plugin :markdown
-end
 ```
 
 Routes define your resources, which in the end are just data objects that
@@ -203,7 +228,7 @@ Then we could view our resources:
   @url="bar">]
 ```
 
-The prelude plugin provides the following methods:
+The `prelude` plugin provides the following methods:
 
 |Method|Description|
 |------|-----------|
@@ -212,7 +237,7 @@ The prelude plugin provides the following methods:
 |`basename`|The file basename (e.g. `index.html`) for the resource|
 |`root?`|Whether or not the resource is the root path|
 
-While the phlex plugin provides:
+While the `phlex` plugin provides:
 
 |Method|Description|
 |------|-----------|
