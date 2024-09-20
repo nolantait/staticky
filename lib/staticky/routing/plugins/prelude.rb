@@ -21,15 +21,17 @@ module Staticky
             end
           end
 
-          def match(path, to:, type: Resource)
-            case to
+          def match(path, to:, as: Resource)
+            resource = case to
             when ->(x) { x.is_a?(Class) || x.is_a?(Phlex::HTML) }
               component = ensure_instance(to)
-              resources << resource = type.new(component:, url: path)
-              index_resource(path, resource)
+              as.new(component:, url: path)
             else
               raise Router::Error, "Invalid route target: #{to.inspect}"
             end
+
+            resources << resource
+            index_resource(path, resource)
           end
 
           def root(to:)

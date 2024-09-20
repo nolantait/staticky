@@ -143,7 +143,7 @@ that adds your plugins:
 
 Your router is a plugin system that by default only has one plugin:
 
-```
+```ruby
 plugin :prelude
 ```
 
@@ -157,8 +157,16 @@ maps to routes in `config/routes.rb`:
 ```ruby
 Staticky.router.define do
   root to: Pages::Home
+
+  # We can pass in a phlex class
   match "404", to: Errors::NotFound
-  match "500", to: Errors::ServiceError
+  # Or an instance
+  match "500", to: Errors::ServiceError.new
+
+  # We can specify the resource type
+  match "about",
+    to: Markdown.new("content/posts/about.md"),
+    as: Resources::Markdown
 
   # Write your own logic to parse your data into components
   Site.posts.each_value do |model|
@@ -171,13 +179,16 @@ Each route takes a Phlex component (or any object that outputs a string from
 `#call`). We can either pass the class for a default initialization (we just
 call `.new`) or initialize it ourselves.
 
+The resource will be initialized with a `component` and a `url`. It is used as
+the view context for your phlex components.
+
 #### Match
 
 This works in a similar way to your Rails routes. Match takes a path and
 a component (either a class or an instance) that it will route to.
 
 ```ruby
-match "404", to: Errors::NotFound
+match "404", to: Errors::NotFound, as: Resource
 ```
 
 #### Root
