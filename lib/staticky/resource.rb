@@ -66,7 +66,7 @@ module Staticky
     end
 
     def self.plugin(plugin, *, &block)
-      plugin = Plugins.load_plugin(plugin) if plugin.is_a?(Symbol)
+      plugin = Resources::Plugins.load_plugin(plugin) if plugin.is_a?(Symbol)
 
       if plugin.respond_to?(:load_dependencies)
         plugin.load_dependencies(self, *, &block)
@@ -79,5 +79,6 @@ module Staticky
     end
 
     plugin self
+    plugin :phlex
   end
 end

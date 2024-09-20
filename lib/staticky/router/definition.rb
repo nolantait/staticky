@@ -14,7 +14,7 @@ module Staticky
       def match(path, to:)
         # Initialize the component if it's a class
         component = ensure_instance(to)
-        @resources << resource = Resources::PhlexComponent.new(
+        @resources << resource = Resource.new(
           url: path,
           component:
         )

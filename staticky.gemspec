@@ -53,6 +53,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "dry-cli", "~> 1.1"
   spec.add_dependency "dry-configurable", "~> 1.2"
   spec.add_dependency "dry-events", "~> 1.0"
+  spec.add_dependency "dry-inflector", "~> 1.1"
   spec.add_dependency "dry-logger", "~> 1.0"
   spec.add_dependency "dry-monitor", "~> 1.0"
   spec.add_dependency "dry-system", "~> 1.0"
