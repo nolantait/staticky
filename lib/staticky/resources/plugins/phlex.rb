@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Staticky
   module Resources
     module Plugins
@@ -22,7 +24,9 @@ module Staticky
           end
 
           def component
-            @component
+            return @component if defined?(@component)
+
+            raise ArgumentError, "component is required"
           end
 
           def build(view_context: ViewContext.new(self))

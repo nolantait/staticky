@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Staticky::Resources::Plugins do
   before do
     stub_const("HelloWorld", Module.new)
