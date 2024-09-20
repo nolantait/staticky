@@ -2,46 +2,23 @@
 
 module Staticky
   class Resource
-    attr_reader :url, :uri, :component
-
-    # url -> string
-    # component -> Phlex::HTML
-    def initialize(url:, component:, destination: Staticky.build_path)
-      @url = url
-      @uri = parse_url(url)
-      @component = component
-      # Where the resource will be written to when the site is built
-      @destination = destination
-    rescue URI::InvalidURIError
-      raise ArgumentError, "Invalid URL: #{url}"
-    end
-
-    def filepath
-      @destination.join(basename)
-    end
-
-    def read
-      filepath.read
-    end
-
-    def basename
-      root? ? "index.html" : "#{url}.html"
-    end
-
-    def root?
-      url == "/"
-    end
-
-    def build(view_context: ViewContext.new(self))
-      component.call(view_context:)
-    end
-
-    private
-
-    def parse_url(url)
-      URI(url).tap do |uri|
-        uri.path = "/#{uri.path}" unless uri.path.start_with?("/")
+    def self.plugin(plugin, ...)
+      plugin = Resources::Plugins.load_plugin(plugin) if plugin.is_a?(Symbol)
+      unless plugin.is_a?(Module)
+        raise ArgumentError, "Invalid plugin type: #{plugin.class.inspect}"
       end
+
+      if plugin.respond_to?(:load_dependencies)
+        plugin.load_dependencies(self, ...)
+      end
+
+      include plugin::InstanceMethods if defined?(plugin::InstanceMethods)
+      extend plugin::ClassMethods if defined?(plugin::ClassMethods)
+
+      plugin.configure(self, ...) if plugin.respond_to?(:configure)
     end
+
+    plugin :prelude
+    plugin :phlex
   end
 end

@@ -65,7 +65,72 @@ Options:
   --help, -h                        # Print this help
 ```
 
+### Plugins
+
+The router and resources use the plugin
+[pattern](https://janko.io/the-plugin-system-of-sequel-and-roda/)
+found in [Sequel](https://github.com/jeremyevans/sequel) and
+[Roda](https://github.com/jeremyevans/roda).
+
+This means you can easily extend each of them with plugins to fit the specific
+content of your site.
+
+```ruby
+module MyResourcePlugin
+  module InstanceMethods
+    def component=(component)
+      @component = component
+    end
+
+    def component
+      return @component if defined?(@component)
+
+      raise ArgumentError, "component is required"
+    end
+  end
+end
+```
+
+You can also define your own specific resources by subclassing and extending
+with your own plugins:
+
+```ruby
+class ApplicationResource < Staticky::Resource
+  plugin :minify_html
+end
+
+class MarkdownResource < ApplicationResource
+  plugin :markdown
+end
+```
+
+Each plugin can define modules for:
+
+|Name|Description|
+|----|-----------|
+|InstanceMethods|Get added as instance methods of the Resource|
+|ClassMethods|Get added as the class methods of the Resource|
+
+In addition you have methods you can define that let you hook into the resource
+that adds your plugins:
+
+|Name|Description|
+|----|-----------|
+|load_dependencies(plugin, ...)|Hook to load any other plugins required by this one|
+|configure(plugin, ...)|Hook for additional setup required on the class|
+
+
 ### Routing
+
+Your router is a plugin system that by default only has one plugin:
+
+```
+plugin :prelude
+```
+
+This gives you the `match` and `root` methods in your router. You can override
+or extend these methods yourself by redefining them (and optionally calling
+`super`) inside your own plugin or class that inherits from the router.
 
 Once your site is generated you can use the router to define how your content
 maps to routes in `config/routes.rb`:
@@ -112,9 +177,29 @@ root to: Pages::Home
 
 ### Resources
 
-Routes define your resources, which are objects that contain all the information
-required to produce the static file that eventually outputs to your
-`Staticky.build_path`.
+They initialize the same way `ActiveModel` objects do. That is they take their
+keywords and call the setter according to the keys:
+
+```ruby
+def new(**env)
+  super().tap do |resource|
+    env.each do |key, value|
+      resource.send(:"#{key}=", value)
+    end
+  end
+end
+```
+
+The base resource has two core plugins it includes by default:
+
+```ruby
+plugin :prelude
+plugin :phlex
+```
+
+Routes define your resources, which in the end are just data objects that
+contain all the information required to produce the static file that eventually
+outputs to your `Staticky.build_path`.
 
 Lets say we had a router defined like:
 
@@ -141,7 +226,7 @@ Then we could view our resources:
   @url="bar">]
 ```
 
-Resources have the following methods:
+The `prelude` plugin provides the following methods:
 
 |Method|Description|
 |------|-----------|
@@ -149,16 +234,24 @@ Resources have the following methods:
 |`read`|Read the output of the resource from the file system|
 |`basename`|The file basename (e.g. `index.html`) for the resource|
 |`root?`|Whether or not the resource is the root path|
+
+While the `phlex` plugin provides:
+
+|Method|Description|
+|------|-----------|
 |`build`|Call the component and output its result as a string|
 
 These resources are used by your site builder to output the files that end up in
 the `Staticky.build_path`.
 
-Each resource has a `#build` method that calls the Phlex component you provide
-and passes in a `ViewContext` just like `ActionView` in Rails. But this context
-is tailored towards your static site.
+Each resource needs to have a `#build` method that creates a file in your build
+folder.
 
-Currently the `Staticky::ViewContext` it contains just two methods:
+The `phlex` plugin will call your components with a `ViewContext` just like
+`ActionView` in Rails. But this context is tailored towards your static site.
+
+This view context is a `SimpleDelegator` to your resource with a few extra
+methods:
 
 |Method|Description|
 |------|-----------|
