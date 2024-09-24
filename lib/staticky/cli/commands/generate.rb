@@ -34,7 +34,6 @@ module Staticky
 
           commands = [
             "bundle install",
-            "bundle binstubs bundler rake rspec-core vite_ruby",
             "yarn install",
             "bin/rspec"
           ].join(" && ")
