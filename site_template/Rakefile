@@ -10,9 +10,14 @@ task :environment do
 end
 
 namespace :site do
-  desc "Precompile assets"
+  desc "Build the site and its assets into the Staticky.build_path (./build)"
   task build: :environment do
-    Rake::Task["vite:build"].invoke
+    start_time = Time.now
+    puts "Building site in #{Staticky.env.name} environment..."
+    Rake::Task["vite:build"].invoke unless Staticky.env.development?
     Staticky.builder.call
+    end_time = Time.now
+    duration = end_time - start_time
+    puts "Built site in #{duration.round(2)}s"
   end
 end
