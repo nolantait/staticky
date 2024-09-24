@@ -475,13 +475,17 @@ file system rather than actually writing to our disk.
 The plugins themselves can also be stubbed:
 
 ```ruby
+require "dry/system/stubs"
+
+Staticky::Resources::Plugins.enable_stubs!
+Staticky::Routing::Plugins.enable_stubs!
+
 RSpec.configure do |config|
   config.before do
     Staticky::Resources::Plugins.stub(:prelude, MyOwnResourcePlugin)
     Staticky::Routing::Plugins.stub(:prelude, MyOwnRoutingPlugin)
   end
 end
-
 ```
 
 ## Development
