@@ -33,6 +33,7 @@ module Staticky
           Staticky.generator.call(path, **)
 
           commands = [
+            "cd #{path}",
             "bundle install",
             "yarn install",
             "chmod +x bin/*",
