@@ -34,7 +34,7 @@ module Staticky
 
   extend Dry::Configurable
 
-  setting :env, default: :development
+  setting :env, default: ENV.fetch("RACK_ENV", "development").to_sym
   setting :build_path, default: Pathname.new("build")
   setting :root_path, default: Pathname(__dir__)
   setting :logger, default: Dry.Logger(:staticky, template: :details)
@@ -56,6 +56,6 @@ module Staticky
   def application = Application
 
   def env
-    Environment.new config.env
+    Environment.new config.env.to_sym
   end
 end

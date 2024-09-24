@@ -22,5 +22,9 @@ FileUtils.chdir APP_ROOT do
   puts "\n== Installing javascript dependencies =="
   system! "yarn install"
 
+  puts "\n== Building the initial site =="
+  system! "bin/rake site:build"
+
+  puts "\n== Running specs to see if everything is ok =="
   system! "bin/rspec"
 end
