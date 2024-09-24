@@ -20,4 +20,20 @@ namespace :site do
     duration = end_time - start_time
     puts "Built site in #{duration.round(2)}s"
   end
+
+  desc "Watch the site and its assets for changes"
+  task watch: :environment do
+    require "filewatcher"
+
+    puts "Watching site in #{Staticky.env.name} environment..."
+
+    Filewatcher.new([
+      "app/**/*.rb",
+      "lib/**/*.rb",
+      "content/**/*"
+    ]).watch do
+      puts "Change detected, rebuilding site..."
+      system("bin/rake site:build")
+    end
+  end
 end

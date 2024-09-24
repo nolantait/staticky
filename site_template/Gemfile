@@ -27,8 +27,8 @@ group :test do
 end
 
 group :development do
+  gem "filewatcher", require: false
   gem "puma"
-  gem "rerun"
   gem "rubocop"
   gem "rubocop-inhouse"
 end

@@ -8,7 +8,7 @@ export default defineConfig({
     RubyPlugin(),
     FullReload(
       "build/index.html",
-      { delay: 0 }
+      { delay: 500 }
     ),
   ],
 })
