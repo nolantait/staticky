@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "debug"
-
 module Staticky
   module CLI
     module Commands
