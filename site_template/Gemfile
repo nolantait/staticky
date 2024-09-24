@@ -28,4 +28,5 @@ gem "rspec"
 
 # Development
 gem "rerun"
-gem "rubocop-inhouse", require: false
+gem "rubocop"
+gem "rubocop-inhouse"
