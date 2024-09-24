@@ -32,14 +32,10 @@ module Staticky
 
           Staticky.generator.call(path, **)
 
-          commands = [
-            "cd #{path}",
-            "chmod +x #{path}/bin/*",
-            "bin/setup",
-            "bin/rspec"
-          ].join(" && ")
-
-          system(commands, chdir: path) || abort("install failed")
+          system(
+            "cd #{path} && bin/setup",
+            chdir: path
+          ) || abort("install failed")
         end
       end
     end
