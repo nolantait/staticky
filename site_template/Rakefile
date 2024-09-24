@@ -7,36 +7,37 @@ ViteRuby.install_tasks
 desc "Precompile assets"
 task :environment do
   require "./config/boot"
+
+  Staticky.application.monitor(:builder, methods: %i[call]) do |event|
+    Staticky.logger.info "Built site in #{event[:time]}ms"
+  end
 end
 
 namespace :site do
   desc "Build the site and its assets into the Staticky.build_path (./build)"
   task build: :environment do
-    start_time = Time.now
-    puts "Building site in #{Staticky.env.name} environment..."
+    Staticky.logger.info "Building site in #{Staticky.env.name} environment..."
     Rake::Task["vite:build"].invoke unless Staticky.env.development?
     Staticky.builder.call
-    end_time = Time.now
-    duration = end_time - start_time
-    puts "Built site in #{duration.round(2)}s"
   end
 
   desc "Watch the site and its assets for changes"
   task watch: :environment do
     require "filewatcher"
 
-    puts "Watching site in #{Staticky.env.name} environment..."
+    Staticky.logger.info "Watching site in #{Staticky.env.name} environment..."
 
-    Filewatcher.new([
-      "app/**/*.rb",
-      "lib/**/*.rb",
-      "content/**/*"
-    ]).watch do
-      puts "Change detected, rebuilding site..."
-
+    Filewatcher.new(
+      [
+        "app/**/*.rb",
+        "lib/**/*.rb",
+        "content/**/*"
+      ]
+    ).watch do
+      Staticky.logger.info "Change detected, rebuilding site..."
       sh("bin/rake site:build") do |ok, res|
         unless ok
-          puts "Error rebuilding site:"
+          Staticky.logger.error "Error rebuilding site:"
           puts res
         end
       end

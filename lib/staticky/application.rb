@@ -1,7 +1,18 @@
 # frozen_string_literal: true
 
 module Staticky
-  class Container < Dry::System::Container
+  class Application < Dry::System::Container
+    # This class coordinates the booting process to add our dependencies.
+    # We use zeitwerk to autoload our constants in the lib/staticky folder.
+    #
+    # Monitoring is enabled to hook into calls to certain dependencies.
+    #
+    # ```ruby
+    # Staticky.application.monitor(:builder, methods: %i[call]) do |event|
+    #   Staticky.logger.info "Built site in #{event[:time]}ms"
+    # end
+    # ```
+
     use :zeitwerk
     use :monitoring
 

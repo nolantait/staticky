@@ -457,11 +457,11 @@ them out if you want:
 ```ruby
 require "dry/system/stubs"
 
-Staticky.container.enable_stubs!
+Staticky.application.enable_stubs!
 
 RSpec.configure do |config|
   config.before do
-    Staticky.container.stub(:files, Staticky::Filesystem.test)
+    Staticky.application.stub(:files, Staticky::Filesystem.test)
   end
 end
 ```

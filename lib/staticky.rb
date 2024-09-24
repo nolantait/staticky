@@ -21,7 +21,7 @@ require_relative "staticky/resources/plugins/prelude"
 require_relative "staticky/resources/plugins/phlex"
 require_relative "staticky/routing/plugins"
 require_relative "staticky/routing/plugins/prelude"
-require_relative "staticky/container"
+require_relative "staticky/application"
 
 module Staticky
   # DOCS: Module for static site infrastructure such as:
@@ -44,16 +44,16 @@ module Staticky
     formatter: :rack
   )
 
-  def monitor(...) = container.monitor(...)
+  def monitor(...) = application.monitor(...)
   def server_logger = config.server_logger
   def logger = config.logger
   def build_path = config.build_path
   def root_path = config.root_path
   def resources = router.resources
-  def router = container[:router]
-  def builder = container[:builder]
-  def generator = container[:generator]
-  def container = Container
+  def router = application[:router]
+  def builder = application[:builder]
+  def generator = application[:generator]
+  def application = Application
 
   def env
     Environment.new config.env

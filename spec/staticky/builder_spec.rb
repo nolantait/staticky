@@ -15,7 +15,7 @@ RSpec.describe Staticky::Builder do
   end
 
   it "compiles the homepage" do
-    files = Staticky::Container[:files]
+    files = Staticky.application[:files]
     files.touch(Staticky.root_path.join("public/favicon.ico"))
 
     builder = described_class.new(files:)
