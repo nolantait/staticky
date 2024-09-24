@@ -1,3 +1,3 @@
 server: bin/bundle exec puma -C config/puma.rb
-builder: bin/bundle exec rerun --dir app,lib,content --exit --verbose -- bin/rake site:build
+builder: bin/rake site:watch
 vite: bin/vite dev
