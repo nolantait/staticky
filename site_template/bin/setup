@@ -23,7 +23,6 @@ FileUtils.chdir APP_ROOT do
   system! "yarn install"
 
   puts "\n== Building the initial site =="
-  system! "bin/vite build"
   system! "bin/rake site:build"
 
   puts "\n== Running specs to see if everything is ok =="
