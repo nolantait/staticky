@@ -10,6 +10,7 @@ RSpec.describe Staticky::Builder do
 
     Staticky.router.define do
       root to: TestComponent
+      match "/about", to: TestComponent
     end
   end
 
@@ -22,8 +23,10 @@ RSpec.describe Staticky::Builder do
 
     favicon = Staticky.build_path.join("favicon.ico")
     index = Staticky.build_path.join("index.html")
+    about = Staticky.build_path.join("about.html")
 
     expect(files.exist?(favicon)).to be(true)
     expect(files.exist?(index)).to be(true)
+    expect(files.exist?(about)).to be(true)
   end
 end
