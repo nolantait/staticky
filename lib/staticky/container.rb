@@ -17,9 +17,9 @@ module Staticky
       end
     end
 
-    register(:files, Staticky::Filesystem.real)
-    register(:router, Staticky::Router.new)
-    register(:builder, Staticky::Builder.new)
-    register(:generator, Staticky::Generator.new)
+    register(:files, memoize: true) { Staticky::Filesystem.real }
+    register(:router, memoize: true) { Staticky::Router.new }
+    register(:builder, memoize: true) { Staticky::Builder.new }
+    register(:generator) { Staticky::Generator.new }
   end
 end
