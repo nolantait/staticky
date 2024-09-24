@@ -17,8 +17,10 @@ FileUtils.chdir APP_ROOT do
   system! "gem install bundler --conservative"
   system("bundle check") || system!("bundle install")
 
-  system! "bundle binstubs --force bundler rubocop rspec vite rake"
+  system! "bundle binstubs --force bundler rubocop rspec-core vite_ruby rake"
 
   puts "\n== Installing javascript dependencies =="
   system! "yarn install"
+
+  system! "bin/rspec"
 end
