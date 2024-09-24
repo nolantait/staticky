@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Run in single threaded mode
 threads 0, 1
 

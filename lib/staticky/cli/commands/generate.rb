@@ -58,7 +58,7 @@ module Staticky
         end
 
         def exec_bundle_command(bundle_command, command, env)
-          full_command = %Q["#{Gem.ruby}" "#{bundle_command}" #{command}]
+          full_command = %("#{Gem.ruby}" "#{bundle_command}" #{command})
           system(env, full_command)
         end
       end
