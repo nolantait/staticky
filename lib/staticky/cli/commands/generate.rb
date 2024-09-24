@@ -33,7 +33,7 @@ module Staticky
           Staticky.generator.call(path, **)
 
           system(
-            "cd #{path} && bin/setup",
+            "cd #{path} && chmod +x #{path}/bin/setup && #{path}/bin/setup",
             chdir: path
           ) || abort("install failed")
         end
