@@ -23,7 +23,7 @@ module Staticky
 
           def match(path, to:, as: Resource)
             resource = case to
-            when ->(x) { x.is_a?(Class) || x.is_a?(Phlex::HTML) }
+            when ->(x) { x.is_a?(Class) || x.is_a?(::Phlex::HTML) }
               component = ensure_instance(to)
               as.new(component:, url: path)
             else
