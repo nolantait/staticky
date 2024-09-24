@@ -111,17 +111,31 @@ end
 ```
 
 This system lets you define your own specific resources by subclassing and
-extending with your own plugins:
+extending with your own plugins.
+
+Here is an example of hooking into the output of the component
+(a string of HTML):
 
 ```ruby
+module MinifyHTML
+  module InstanceMethods
+    # Calling super works because the base class has no methods, everything is
+    # a plugin including the core behavior of a resource.
+    def build
+      SomehowMinifyTheHTML.call(super)
+    end
+  end
+end
+
+Staticky::Resources::Plugins.register_plugin(:minify_html, MinifyHTML)
+
 class ApplicationResource < Staticky::Resource
   plugin :minify_html
 end
-
-class MarkdownResource < ApplicationResource
-  plugin :markdown
-end
 ```
+
+Now when an `ApplicationResource` gets rendered, its final output (a string of
+HTML) will be minified.
 
 Each plugin can define modules for:
 
