@@ -34,9 +34,8 @@ module Staticky
 
           commands = [
             "cd #{path}",
-            "bundle install",
-            "yarn install",
-            "chmod +x bin/*",
+            "chmod +x #{path}/bin/*",
+            "bin/setup",
             "bin/rspec"
           ].join(" && ")
 
