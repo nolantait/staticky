@@ -22,8 +22,7 @@ module Staticky
           end
 
           def match(path, to:, as: Resource)
-            # Strip leading slash
-            path = path.to_s.gsub(%r{^/}, "") unless path == "/"
+            path = strip_leading_slash(path)
 
             resource = case to
             when ->(x) { x.is_a?(Class) || x.is_a?(::Phlex::HTML) }
@@ -45,9 +44,7 @@ module Staticky
             return path if path.is_a?(String) && path.start_with?("#")
             return lookup(path) if path.is_a?(Class)
 
-            # Strip leading slash
-            path = path.to_s.gsub(%r{^/}, "")
-
+            path = strip_leading_slash(path)
             uri = URI(path)
             # Return absolute paths as is
             return path if uri.absolute?
@@ -84,6 +81,12 @@ module Staticky
 
           def ensure_instance(component)
             component.is_a?(Class) ? component.new : component
+          end
+
+          def strip_leading_slash(path)
+            return path if path == "/"
+
+            path.to_s.gsub(%r{^/}, "")
           end
         end
       end
