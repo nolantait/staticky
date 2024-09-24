@@ -13,20 +13,22 @@ gem "protos-markdown"
 gem "dry-inflector"
 gem "front_matter_parser"
 gem "rack"
-gem "rackup"
 gem "rake"
 gem "rouge"
 gem "staticky", github: "nolantait/staticky", branch: "master"
 gem "vite_ruby"
 gem "zeitwerk"
 
-# Testing
-gem "capybara", require: false
-gem "debug"
-gem "phlex-testing-capybara"
-gem "rspec"
+group :test do
+  gem "capybara", require: false
+  gem "debug"
+  gem "phlex-testing-capybara"
+  gem "rspec"
+end
 
-# Development
-gem "rerun"
-gem "rubocop"
-gem "rubocop-inhouse"
+group :development do
+  gem "puma"
+  gem "rerun"
+  gem "rubocop"
+  gem "rubocop-inhouse"
+end
