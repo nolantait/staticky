@@ -24,7 +24,7 @@ namespace :site do
   task watch: :environment do
     require "filewatcher"
 
-    Rake::Task["site:build"].invoke unless Staticky.build_path.exist?
+    Rake::Task["site:build"].execute unless Staticky.build_path.exist?
 
     Staticky.logger.info "Watching site in #{Staticky.env.name} environment..."
 
