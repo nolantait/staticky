@@ -9,7 +9,7 @@ assets by default and hooks into the build command defined in your `Rakefile`
 Your development server runs with `bin/dev`
 
 Everything is ruby, there is no html or erb. It outputs a static site to the
-`build/` folder by default, but that can be configured.
+`./build` folder by default, but that can be configured.
 
 ## Usage
 
@@ -36,7 +36,7 @@ Your site should not be accessible at http://localhost:9292
 
 ## Building
 
-During development `rerun` watches your files and rebuilds the site when they
+During development `filewatcher` watches your files and rebuilds the site when they
 change by running `bin/rake site:build`. These files are served by a Roda app.
 
 In production you simply output the files to a folder and serve them statically
@@ -45,6 +45,26 @@ can be tweaked however you like.
 
 Building takes all the definitions inside your `config/routes` and outputs
 static files to `./build` or wherever you have configured it.
+
+## Development and hot reloading
+
+By default your site will use `puma` to run a `roda` server that serves the
+files inside your `Staticky.build_path` (`./build` by default).
+
+You can access your site at:
+
+```
+http://localhost:3000
+```
+
+You can change these settings inside your `Procfile.dev` which starts the
+processes required for development.
+
+When your site triggers a rebuild and you are connected to the page. The vite
+server will trigger a page reload after 500ms.
+
+If this is too fast and you find yourself having to refresh the page yourself
+you can tweak this inside your `vite.config.ts`.
 
 ## Views
 
@@ -80,12 +100,12 @@ Staticky.router.define do
   # Write your own custom logic for parsing your markdown
   Dir["content/**/*.md"].each do |file|
     parsed = FrontMatterParser::Parser.parse_file(file, loader:)
+    basenames = file.gsub("content/", "").gsub(".md", "")
+    front_matter = parsed.front_matter.transform_keys(&:to_sym)
 
-    match file.gsub("content/", "").gsub(".md", ""),
-          to: Pages::Post.new(
-            parsed.content,
-            front_matter: parsed.front_matter.transform_keys(&:to_sym)
-          )
+    basename.each do |path|
+      match path, to: Pages::Post.new(parsed.content, front_matter:)
+    end
   end
 end
 ```
