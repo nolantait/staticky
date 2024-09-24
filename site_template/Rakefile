@@ -33,7 +33,13 @@ namespace :site do
       "content/**/*"
     ]).watch do
       puts "Change detected, rebuilding site..."
-      system("bin/rake site:build")
+
+      sh("bin/rake site:build") do |ok, res|
+        unless ok
+          puts "Error rebuilding site:"
+          puts res
+        end
+      end
     end
   end
 end
