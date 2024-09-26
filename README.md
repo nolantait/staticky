@@ -61,7 +61,7 @@ Options:
   --url=VALUE, -u VALUE             # Site URL, default: "https://example.com"
   --title=VALUE, -t VALUE           # Site title, default: "Example"
   --description=VALUE, -d VALUE     # Site description, default: "Example site"
-  --twitter=VALUE, -t VALUE         # Twitter handle, default: ""
+  --twitter=VALUE, -x VALUE         # Twitter handle, default: ""
   --help, -h                        # Print this help
 ```
 
