@@ -379,7 +379,7 @@ link_to("Some link", "/")
 ### Building your site
 
 When you are developing your site you run `bin/dev` to start your development
-server on [http://localhost:9292](http://localhost:9292).
+server on [http://localhost:3000](http://localhost:3000).
 This will automatically reload after a short period when you make changes.
 
 Assets are handled by Vite by default, but you can have whatever build process
