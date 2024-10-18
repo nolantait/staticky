@@ -2,7 +2,9 @@
 
 module Staticky
   class Builder
-    include Dry::Events::Publisher[:builder]
+    # Publisher needs to have a different name vs the application monitor
+    # https://github.com/dry-rb/dry-events/issues/6
+    include Dry::Events::Publisher[:building]
     include Deps[:files, :router]
 
     register_event("started")
