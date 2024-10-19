@@ -30,7 +30,7 @@ module Staticky
 
     route do |r|
       Staticky.resources.each do |resource|
-        case resource.filepath.basename.to_s
+        case resource.filepath.to_s
         when "index.html"
           r.root do
             render(inline: resource.read)

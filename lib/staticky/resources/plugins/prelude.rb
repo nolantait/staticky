@@ -15,16 +15,18 @@ module Staticky
         end
 
         module InstanceMethods
+          def build_path
+            destination.join(filepath)
+          end
+
           def filepath
-            destination.join(basename)
+            return Pathname.new("index.html") if root?
+
+            Pathname.new("#{uri.path.gsub(%r{^/}, "")}.html")
           end
 
           def read
-            filepath.read
-          end
-
-          def basename
-            root? ? "index.html" : "#{url}.html"
+            build_path.read
           end
 
           def root?

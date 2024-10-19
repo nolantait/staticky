@@ -30,7 +30,7 @@ module Staticky
         .resources
         .each do |resource|
           publish("before_resource", resource:)
-          compile resource.filepath, resource.build
+          compile resource.build_path, resource.build
           publish("after_resource", resource:)
         end
     end

@@ -17,6 +17,8 @@ RSpec.describe Staticky::Server, type: :feature do
       root to: TestComponent
     end
 
+    Staticky.application[:files].write("build/index.html", "Hello world")
+
     Capybara.app = described_class.app.freeze
   end
 

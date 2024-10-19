@@ -274,9 +274,9 @@ The `prelude` plugin provides the following methods:
 
 |Method|Description|
 |------|-----------|
-|`filepath`|`Pathname` of where the component's output will be written to|
+|`build_path`|`Pathname` of where the component's output will be written to|
 |`read`|Read the output of the resource from the file system|
-|`basename`|The file basename (e.g. `index.html`) for the resource|
+|`filepath`|The file path (e.g. `about/index.html`) for the resource|
 |`root?`|Whether or not the resource is the root path|
 
 While the `phlex` plugin provides:
