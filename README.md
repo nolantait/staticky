@@ -8,7 +8,7 @@ first-class support for Phlex components.
 I wanted to extend the developer experience of something like Rails but focused
 on static sites.
 
-I am using this at https://taintedcoders.com. (soon)
+I am currently using this to create https://taintedcoders.com
 
 - Hot reloading in development with Roda serving static files
 - Docker deployment with NGINX
