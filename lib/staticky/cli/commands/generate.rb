@@ -25,7 +25,7 @@ module Staticky
         option :twitter,
                default: "",
                desc: "Twitter handle",
-               aliases: ["-t"]
+               aliases: ["-x"]
 
         def call(path:, **)
           path = Pathname.new(path).expand_path
