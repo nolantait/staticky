@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Icon < Component
+class Icon < ApplicationComponent
   param :name, reader: false
   option :variant, reader: false, default: -> { }
   option :size, default: -> { :md }, reader: false

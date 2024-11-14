@@ -2,7 +2,7 @@
 
 require "staticky/phlex/view_helpers"
 
-class Component < Protos::Component
+class ApplicationComponent < Protos::Component
   include ViteHelpers
 
   class NullViewContext

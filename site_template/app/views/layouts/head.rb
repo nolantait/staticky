@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Layouts
-  class Head < Component
+  class Head < ApplicationComponent
     option :title, default: -> { ::Site.title }, reader: false
     option :description, default: -> { ::Site.description }, reader: false
 

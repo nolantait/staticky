@@ -325,7 +325,7 @@ use plain old Phlex components if you like.
 
 ```ruby
 module Posts
-  class Show < Component
+  class Show < ApplicationComponent
     param :post, reader: false
 
     def around_template(&)

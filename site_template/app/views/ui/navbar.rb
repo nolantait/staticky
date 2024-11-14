@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module UI
-  class Navbar < Component
+  class Navbar < ApplicationComponent
     def view_template
       header(**attrs) do
         a(href: "/", class: "btn btn-ghost") { Site.title }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module UI
-  class Footer < Component
+  class Footer < ApplicationComponent
     def view_template
       footer(**attrs) do
         p(class: "opacity-80 text-sm") do

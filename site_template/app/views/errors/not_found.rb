@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Errors
-  class NotFound < Page
+  class NotFound < ApplicationPage
     include Protos::Typography
 
     def self.layout = Layouts::Error

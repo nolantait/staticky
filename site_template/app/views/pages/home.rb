@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Pages
-  class Home < Page
+  class Home < ApplicationPage
     include Protos::Typography
 
     def view_template
