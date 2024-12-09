@@ -27,15 +27,10 @@ module Staticky
           connection.addEventListener("message", event => {
             reconnectAttempts = 0
 
-            console.log("Live reload event:", event)
-
             if (event.data == "reloaded!") {
               statickyReload()
             } else {
               const newmod = Number(event.data)
-
-              console.log("Last mod:", lastmod)
-              console.log("New mod:", newmod)
 
               if (lastmod < newmod) {
                 statickyReload()
