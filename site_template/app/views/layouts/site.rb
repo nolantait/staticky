@@ -10,16 +10,16 @@ module Layouts
       end
     end
 
-    def view_template(&)
+    def view_template(&block)
       render UI::Navbar.new(class: css[:navbar])
-      main(**attrs, &)
+      main(**attrs, &block)
       render UI::Footer.new(class: css[:footer])
     end
 
     private
 
-    def head(&)
-      render Head.new(&)
+    def head(&block)
+      render Head.new(&block)
     end
   end
 end

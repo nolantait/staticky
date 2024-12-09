@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Staticky
   module Utils
     module_function
