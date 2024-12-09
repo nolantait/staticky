@@ -417,6 +417,18 @@ These are available in your Phlex components under `helpers` (if you are using
 the site template). This matches what you might expect when using Phlex in
 Rails with `phlex-rails`.
 
+## Live reloading
+
+The development server has been hooked up with some live reloading using
+server-side events.
+
+A javascript script is inserted into the `<head>` tag during development which
+will poll the `_staticky/live_reloading` endpoint. If files have changed then
+a reload is triggered with `Turbo` if available, and just plain
+`window.location.reload()` if not.
+
+You can toggle this off by setting `live_reloading` to false inside the config.
+
 ## Configuration
 
 We can override the configuration according to the settings defined on the main
@@ -429,6 +441,7 @@ Staticky.configure do |config|
   config.root_path = Pathname(__dir__)
   config.logger = Logger.new($stdout)
   config.server_logger = Logger.new($stdout)
+  config.live_reloading = false
 end
 ```
 
