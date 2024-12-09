@@ -44,10 +44,12 @@ module Layouts
         meta name: "twitter:site", content: ::Site.twitter
         meta name: "twitter:creator", content: ::Site.twitter
 
-        vite_client_tag unless ENV["RACK_ENV"] == "production"
         javascript_tag "application"
 
-        yield if block_given?
+        if Staticky.env.development?
+          vite_client_tag
+          staticky_live_reload_js if Staticky.config.live_reloading
+        end
       end
     end
 

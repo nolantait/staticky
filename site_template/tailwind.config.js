@@ -1,12 +1,15 @@
 import defaultTheme from "tailwindcss/defaultTheme"
+import daisyui from "daisyui"
+import typography from "@tailwindcss/typography"
+import variableFonts from "./frontend/tailwindcss/variable_font_plugin"
 
 // For importing tailwind styles from protos gem
-const execSync = require('child_process').execSync;
-const output = execSync('bundle show protos', { encoding: 'utf-8' });
-const protos_path = output.trim() + '/**/*.rb';
+import { execSync } from "child_process"
+const output = execSync("bundle show protos", { encoding: "utf-8" });
+const protos_path = output.trim() + "/**/*.rb";
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+/** @type {import("tailwindcss").Config} */
+const config = {
   content: [
     "./app/**/*.rb",
     "./lib/**/*.rb",
@@ -75,9 +78,10 @@ module.exports = {
     ]
   },
   plugins: [
-    require("daisyui"),
-    require('@tailwindcss/typography'),
-    require("./frontend/tailwindcss/variable_font_plugin"),
+    daisyui,
+    typography,
+    variableFonts
   ],
 }
 
+export default config

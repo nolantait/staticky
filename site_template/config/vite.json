@@ -2,7 +2,9 @@
   "all": {
     "publicDir": "build",
     "sourceCodeDir": "frontend",
-    "watchAdditionalPaths": []
+    "watchAdditionalPaths": [
+      "app/**/*.rb"
+    ]
   },
   "development": {
     "autoBuild": true,
