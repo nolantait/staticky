@@ -7,6 +7,12 @@ module Staticky
         @_view_context
       end
 
+      def staticky_live_reload_js(base_path = "/")
+        script(type: :module) do
+          unsafe_raw Staticky::Utils.live_reload_js(base_path)
+        end
+      end
+
       def link_to(text = nil, href, **, &block) # rubocop:disable Style/OptionalArguments
         block ||= proc { text }
         href = Staticky.router.resolve(href)

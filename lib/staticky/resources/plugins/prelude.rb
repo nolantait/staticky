@@ -26,7 +26,7 @@ module Staticky
           end
 
           def read
-            build_path.read
+            Staticky.files.read(build_path)
           end
 
           def root?

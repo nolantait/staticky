@@ -6,12 +6,6 @@ require "dry/system/stubs"
 
 require "phlex/testing/capybara"
 
-Staticky.configure do |config|
-  config.root_path = Pathname.new(__dir__).join("fixtures")
-  config.build_path = Pathname.new(__dir__).join("fixtures/build")
-  config.env = :test
-end
-
 Staticky.application.enable_stubs!
 
 RSpec.configure do |config|
@@ -27,6 +21,12 @@ RSpec.configure do |config|
 
   config.before do
     Staticky.application.stub(:files, Staticky::Filesystem.test)
+
+    Staticky.configure do |config|
+      config.env = :test
+      config.build_path = Pathname.new("build")
+      config.root_path = Pathname(__dir__).join("..")
+    end
   end
 
   config.include Phlex::Testing::Capybara::ViewHelper, type: :view

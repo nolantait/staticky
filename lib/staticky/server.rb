@@ -3,6 +3,7 @@
 require "roda"
 
 require_relative "../staticky"
+require_relative "server_plugin"
 
 module Staticky
   class Server < Roda
@@ -12,23 +13,11 @@ module Staticky
 
     NotFound = Class.new(Staticky::Error)
 
-    plugin :common_logger, Staticky.server_logger, method: :debug
-    plugin :render, engine: "html"
-    plugin :public
-
-    plugin :not_found do
-      raise NotFound if Staticky.env.test?
-
-      Staticky.build_path.join("404.html").read
-    end
-
-    plugin :error_handler do |e|
-      raise e if Staticky.env.test?
-
-      Staticky.build_path.join("500.html").read
-    end
+    plugin :staticky_server
 
     route do |r|
+      r.staticky
+
       Staticky.resources.each do |resource|
         case resource.filepath.to_s
         when "index.html"
