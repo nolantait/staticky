@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## [0.3.0] - 2024-12-09
+
+- Adds live reloading of pages during development using server side events
+- Integrates live reloading with vite in site template
+
 ## [0.2.0] - 2024-09-24
 
 - Adds plugin system akin to Roda and Sequel for `Resource` and `Router`
