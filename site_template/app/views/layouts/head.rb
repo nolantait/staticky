@@ -44,6 +44,8 @@ module Layouts
         meta name: "twitter:site", content: ::Site.twitter
         meta name: "twitter:creator", content: ::Site.twitter
 
+        stylesheet_tag "stylesheets/syntax", media: "screen"
+        stylesheet_tag "stylesheets/application", media: "screen"
         javascript_tag "application"
 
         if Staticky.env.development?
@@ -57,6 +59,10 @@ module Layouts
 
     def javascript_tag(...)
       vite_javascript_tag(...)
+    end
+
+    def stylesheet_tag(...)
+      vite_stylesheet_tag(...)
     end
   end
 end

@@ -2,6 +2,9 @@
   "all": {
     "publicDir": "build",
     "sourceCodeDir": "frontend",
+    "additionalEntrypoints": [
+      "~/{images,stylesheets}/**/*"
+    ],
     "watchAdditionalPaths": [
       "app/**/*.rb"
     ]

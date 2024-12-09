@@ -6,6 +6,14 @@ module ViteHelpers
     script(src:, type: :module)
   end
 
+  def vite_stylesheet_tag(*names, **options)
+    style_paths = names.map { |name| vite_asset_path(name, type: :stylesheet) }
+
+    style_paths.each do |href|
+      link(href:, rel: :stylesheet, **options)
+    end
+  end
+
   def vite_javascript_tag(
     *names,
     type: :module,

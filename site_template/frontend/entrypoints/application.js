@@ -1,7 +1,5 @@
 import "@fontsource-variable/inter"
+import * as Turbo from "@hotwired/turbo"
 import "protos-stimulus"
-
-import "~/stylesheets/application.css"
-import "~/stylesheets/syntax.css"
 
 import "~/controllers"
