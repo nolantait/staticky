@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.3.1] - 202-12-09
+
+- Fixes flashes of unstyled content by adding `vite_stylesheet_tag`
+
 ## [0.3.0] - 2024-12-09
 
 - Adds live reloading of pages during development using server side events
