@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 class ApplicationPage < ApplicationComponent
-  def around_template(&block) = render Layouts::Page.new(&block)
+  def around_template(&block) = render Layouts::Site.new(&block)
 end
