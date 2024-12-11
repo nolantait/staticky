@@ -15,6 +15,8 @@ RSpec.describe Staticky::Generator do
 
     expect(files.exist?("/tmp/site/config/site.rb")).to be(true)
     expect(files.exist?("/tmp/site/Dockerfile")).to be(true)
+
     expect(files.exist?("/tmp/site/.ruby-version")).to be(true)
+    expect(files.read("/tmp/site/.ruby-version")).to eq(RUBY_VERSION)
   end
 end

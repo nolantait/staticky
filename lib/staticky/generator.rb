@@ -24,40 +24,51 @@ module Staticky
 
     def call(output_dir, **)
       view_context = ViewContext.new(**)
-      output_dir = Pathname.new(output_dir).expand_path
+      output_dir = Pathname(output_dir).expand_path
 
-      Pathname.glob(@path.join("**/*"), File::FNM_DOTMATCH).each do |file|
-        build_file(file:, output_dir:, view_context:)
+      Pathname.glob(@path.join("**/*"), File::FNM_DOTMATCH).each do |input_path|
+        relative_path = input_path.relative_path_from(@path)
+        output_path = output_dir.join(relative_path)
+        build_file(input_path:, output_path:, view_context:)
       end
     end
 
     private
 
-    def build_file(file:, output_dir:, view_context:)
-      return if file.directory?
-
-      relative_path = file.relative_path_from(@path)
-      target = output_dir.join(relative_path)
+    def build_file(input_path:, output_path:, view_context:)
+      return if input_path.directory?
 
       # This handles files like:
       # - index.html.erb -> index.html
       # - site.erb -> site.rb
-      if target.extname == ".erb"
-        target = target.sub_ext("")
-        target = target.sub_ext(".rb") if target.extname == ""
+      # - .ruby-version.erb -> .ruby-version
+      output_path = output_path.then do |filepath|
+        next filepath unless filepath.extname == ".erb"
+
+        # Replace the .erb with nothing. Skip if its not a ruby file
+        # site.erb -> site
+        filepath = filepath.sub_ext("")
+        next filepath unless filepath.extname.empty?
+        next filepath if dotfile?(filepath)
+
+        filepath.sub_ext(".rb")
       end
 
-      build_template(file:, target:, view_context:)
+      build_template(input_path:, output_path:, view_context:)
     end
 
-    def build_template(file:, target:, view_context:)
-      files.write(target, render_template(file, view_context))
+    def build_template(input_path:, output_path:, view_context:)
+      files.write(output_path, render_template(input_path, view_context))
     end
 
     def render_template(file, view_context)
       return file.read unless file.extname == ".erb"
 
       Tilt::ERBTemplate.new(file).render(view_context)
+    end
+
+    def dotfile?(path)
+      path.basename.to_s.start_with?(".")
     end
   end
 end
