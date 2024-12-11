@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# Run in single threaded mode
-threads 0, 1
+threads 3
 
 # Specifies the `port` that Puma will listen on to receive requests; default is
 # 3000.
