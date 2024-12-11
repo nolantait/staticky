@@ -6,7 +6,8 @@
       "~/{images,stylesheets}/**/*"
     ],
     "watchAdditionalPaths": [
-      "app/**/*.rb"
+      "app/**/*.rb",
+      "config/site.rb"
     ]
   },
   "development": {
