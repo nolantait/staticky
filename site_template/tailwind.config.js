@@ -11,7 +11,7 @@ const protos_path = output.trim() + "/**/*.rb";
 /** @type {import("tailwindcss").Config} */
 const config = {
   content: [
-    "./app/**/*.rb",
+    "./app/views/**/*.rb",
     "./lib/**/*.rb",
     protos_path
   ],
