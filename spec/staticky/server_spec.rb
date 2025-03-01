@@ -2,7 +2,6 @@
 
 require "capybara"
 require "capybara/rspec"
-
 require "staticky/server"
 
 RSpec.describe Staticky::Server, type: :feature do
@@ -17,10 +16,8 @@ RSpec.describe Staticky::Server, type: :feature do
       root to: TestComponent
     end
 
-    Staticky.files.write(
-      Staticky.build_path.join("index.html"),
-      "Hello world"
-    )
+    index_html = Staticky.build_path.join("index.html")
+    Staticky.files.write(index_html, "Hello world")
 
     Capybara.app = described_class.app.freeze
   end
