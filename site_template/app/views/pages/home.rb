@@ -9,7 +9,7 @@ module Pages
         class: "min-h-96",
         style: "background-image: url(#{asset_path("images/hero.jpg")})"
       ) do |hero|
-        hero.overlay(class: "opacity-90")
+        hero.overlay
         hero.content(class: "flex-col text-white") do
           h1 { "Ruby maximalism" }
           h2(margin: false, size: :sm) { "Zen vibes only" }
