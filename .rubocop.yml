@@ -7,8 +7,5 @@ inherit_gem:
     - config/default.yml
     - config/capybara.yml
 
-AllCops:
-  TargetRubyVersion: 3.3
-
 Lint/NumberConversion:
   Enabled: false

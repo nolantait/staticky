@@ -10,16 +10,22 @@ module Layouts
       end
     end
 
-    def view_template(&block)
+    def view_template(&)
       render UI::Navbar.new(class: css[:navbar])
-      main(**attrs, &block)
+      main(**attrs, &)
       render UI::Footer.new(class: css[:footer])
     end
 
     private
 
-    def head(&block)
-      render Head.new(&block)
+    def head(&)
+      render Head.new(&)
+    end
+
+    def theme
+      {
+        container: "min-h-screen"
+      }
     end
   end
 end
