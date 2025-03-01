@@ -31,7 +31,7 @@ module Staticky
           end
 
           def build(view_context: ViewContext.new(self))
-            component.call(view_context:)
+            component.call(context: view_context)
           end
         end
       end
