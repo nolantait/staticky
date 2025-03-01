@@ -11,7 +11,7 @@ class ApplicationComponent < Protos::Component
   end
 
   def helpers
-    context || NullViewContext.new
+    context[:helpers] ||= NullViewContext.new
   end
 
   def asset_path(...)
