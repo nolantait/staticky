@@ -14,7 +14,7 @@ module Staticky
 
     def self.call(...) = new(...).call
 
-    def on(event_type, &block) = subscribe(event_type, &block)
+    def on(event_type, &) = subscribe(event_type, &)
 
     def call
       publish("started")
