@@ -6,7 +6,7 @@ module Pages
 
     def view_template
       render Protos::Hero.new(
-        class: "h-96",
+        class: "min-h-96",
         style: "background-image: url(#{asset_path("images/hero.jpg")})"
       ) do |hero|
         hero.overlay(class: "opacity-90")
