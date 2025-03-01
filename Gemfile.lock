@@ -104,9 +104,6 @@ GEM
       ast (~> 2.4.1)
       racc
     phlex (1.11.0)
-    phlex-testing-capybara (0.1.0)
-      capybara (~> 3.38)
-      phlex (>= 0.5)
     psych (5.2.1)
       date
       stringio
@@ -199,7 +196,6 @@ PLATFORMS
 DEPENDENCIES
   capybara
   debug
-  phlex-testing-capybara
   rake
   rspec
   rubocop-inhouse

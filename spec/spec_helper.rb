@@ -4,8 +4,6 @@ require "debug"
 require "staticky"
 require "dry/system/stubs"
 
-require "phlex/testing/capybara"
-
 Staticky.application.enable_stubs!
 
 RSpec.configure do |config|
@@ -28,6 +26,6 @@ RSpec.configure do |config|
       config.root_path = Pathname(__dir__).join("..")
     end
   end
-
-  config.include Phlex::Testing::Capybara::ViewHelper, type: :view
 end
+
+Pathname.glob(Pathname(__dir__).join("support/**/*.rb")).each { |file| require file }
