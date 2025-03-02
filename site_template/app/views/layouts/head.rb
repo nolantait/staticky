@@ -22,7 +22,7 @@ module Layouts
         meta name: "apple-mobile-web-app-status-bar-style", content: "default"
         meta name: "apple-mobile-web-app-title", content: @title
 
-        link rel: "canonical", href: ::Site.url_for(helpers.current_path)
+        link rel: "canonical", href: ::Site.url_for(helpers.current_path).to_s
         link rel: "apple-touch-icon", href: "/apple-touch-icon.png"
         link rel: "icon",
           type: "image/png",
