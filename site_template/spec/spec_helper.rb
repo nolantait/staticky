@@ -3,7 +3,6 @@
 require "./config/boot"
 Bundler.require(:test)
 
-require "capybara/rspec"
 require "dry/inflector"
 
 inflector = Dry::Inflector.new

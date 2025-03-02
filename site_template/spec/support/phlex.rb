@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "capybara/rspec"
+
 module ComponentHelpers
   def render(component, ...)
     result = component.call(...)
