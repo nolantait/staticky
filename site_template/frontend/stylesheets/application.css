@@ -1,61 +1,122 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.js";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "onedark";
+  default: true;
+  prefersdark: true;
+  color-scheme: "dark";
+
+  --color-base-100: oklch(35.07% 0.0193 260.66);
+  --color-base-200: oklch(29.25% 0.0157 264.3);
+  --color-base-300: oklch(25.15% 0.0122 264.33);
+  --color-neutral: oklch(17% 0.0157 260);
+  --color-neutral-content: oklch(86% 0.02 250);
+  --color-base-content: oklch(84.45% 0.0119 264.5);
+  --color-primary: oklch(0.7 0.15 240);
+  --color-primary-content: oklch(15% 0.091 265);
+  --color-secondary: oklch(0.8 0.1 80);
+  --color-secondary-content: oklch(10% 0.1 57);
+  --color-accent: oklch(0.7 0.2 310);
+  --color-accent-content: oklch(20% 0.149 300);
+  --color-info: oklch(72.31% 0.0916 200);
+  --color-info-content: oklch(20% 0.066 240);
+  --color-success: oklch(76.83% 0.1103 133);
+  --color-success-content: oklch(20% 0.077 169);
+  --color-warning: oklch(82.49% 0.097 82);
+  --color-warning-content: oklch(15% 0.112 46);
+  --color-error: oklch(67.09% 0.1448 17);
+  --color-error-content: oklch(20% 0.105 12);
+
+  --radius-selector: 8px;
+  --radius-field: 8px;
+  --radius-box: 8px;
+
+  --size-selector: 4px;
+  --size-field: 4px;
+
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@theme inline {
+  --font-*: initial;
+  --font-sans: Inter Variable, ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
+  --spacing: 4px;
+  --spacing-xs: clamp(8px, 1%, 16px);
+  --spacing-sm: clamp(12px, 3%, 18px);
+  --spacing-md: clamp(20px, 6%, 40px);
+  --spacing-lg: clamp(48px, 12%, 96px);
+  --spacing-xl: clamp(96px, 24%, 192px);
+
+  --gap: 4px;
+  --gap-xs: clamp(8px, 1vmax, 16px);
+  --gap-sm: clamp(16px, 3vmax, 40px);
+  --gap-md: clamp(24px, 6vmax, 48px);
+  --gap-lg: clamp(48px, 8vmax, 64px);
+  --gap-xl: clamp(64px, 12vmax, 96px);
+}
 
 @layer base {
   :root {
-    --spacing-xs: clamp(0.5rem, 1%, 1rem);
-    --spacing-sm: clamp(0.75rem, 3%, 1.2rem);
-    --spacing-md: clamp(1.25rem, 6%, 2.5rem);
-    --spacing-lg: clamp(3rem, 12%, 6rem);
-    --spacing-xl: clamp(6rem, 24%, 12rem);
-    --spacing-gap-xs: clamp(0.5rem, 1vmax, 1rem);
-    --spacing-gap-sm: clamp(1rem, 3vmax, 1.5rem);
-    --spacing-gap-md: clamp(1.5rem, 6vmax, 3rem);
-    --spacing-gap-lg: clamp(3rem, 8vmax, 4rem);
-    --spacing-gap-xl: clamp(4rem, 12vmax, 6rem);
-    --shadow-color: var(--b3);
-    --box-shadow-sm:
-      0.3px 0.5px 0.5px oklch(var(--shadow-color) / 0.49),
-      0.5px 0.7px 0.8px -1.9px oklch(var(--shadow-color) / 0.38),
-      1.3px 1.9px 2.2px -3.7px oklch(var(--shadow-color) / 0.27);
-    --box-shadow-md:
-      0.3px 0.5px 0.5px oklch(var(--shadow-color) / 0.51),
-      0.8px 1.2px 1.4px -1.2px oklch(var(--shadow-color) / 0.43),
-      2.3px 3.6px 4px -2.5px oklch(var(--shadow-color) / 0.34),
-      6.3px 9.6px 10.8px -3.7px oklch(var(--shadow-color) / 0.26);
-    --box-shadow-lg:
-      0.3px 0.5px 0.5px oklch(var(--shadow-color) / 0.54),
-      1.3px 1.9px 2.2px -0.6px oklch(var(--shadow-color) / 0.49),
-      2.7px 4.1px 4.6px -1.2px oklch(var(--shadow-color) / 0.44),
-      5.5px 8.4px 9.4px -1.9px oklch(var(--shadow-color) / 0.39),
-      10.6px 16.1px 18.1px -2.5px oklch(var(--shadow-color) / 0.34),
-      18.7px 28.4px 31.9px -3.1px oklch(var(--shadow-color) / 0.29),
-      30.7px 46.6px 52.3px -3.7px oklch(var(--shadow-color) / 0.23);
     --navbar-height: 64px;
     --main-scene: calc(100vh - var(--navbar-height));
-    --viewport-padding: var(--spacing-md);
-  }
-
-  body {
-    @apply bg-base-400;
-  }
-
-  .prose pre {
-    @apply bg-base-300 border;
-  }
-
-  * {
-    scrollbar-color: theme("colors.base-200") theme("colors.base-300");
-    border-color: theme("colors.base-200");
   }
 
   /* Chrome, Edge, and Safari */
   *::-webkit-scrollbar {
-    background: theme("colors.base-300")
+    width: 0.66rem;
+    background: var(--color-base-300);
   }
 
   *::-webkit-scrollbar-track {
-    background: theme("colors.base-200");
+    background: var(--color-base-200);
+    border-radius: 0px;
   }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--color-base-100);
+    border-radius: var(--radius-md);
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+  }
+
+  /* Reset number input type styles */
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+}
+
+@layer utilities {
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  .btn-ghost {
+    border: 0;
+  }
+}
+
+*,
+::before,
+::after,
+::backdrop,
+::file-selector-button {
+  /* scrollbar-width: thin; */
+  scrollbar-color: var(--color-base-100) var(--color-base-200);
+  /* border-color: color-mix(in oklab, currentColor, black calc(var(--depth) * 50%)); */
+  border-color: color-mix(in oklch, var(--color-base-content) 20%, transparent);
 }

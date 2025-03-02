@@ -3,7 +3,7 @@
 module Layouts
   class Error < Site
     def view_template(&)
-      div(class: "grid place-items-center h-[--main-scene]") do
+      div(class: "grid place-items-center h-screen") do
         section(class: "flex flex-col place-items-center gap-sm", &)
       end
     end

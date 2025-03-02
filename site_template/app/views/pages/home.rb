@@ -6,15 +6,19 @@ module Pages
 
     def view_template
       render Protos::Hero.new(
-        class: "h-96",
+        class: "min-h-96",
         style: "background-image: url(#{asset_path("images/hero.jpg")})"
       ) do |hero|
-        hero.overlay(class: "opacity-90")
+        hero.overlay
         hero.content(class: "flex-col text-white") do
           h1 { "Ruby maximalism" }
-          p(margin: false) { "Zen vibes only" }
+          h2(margin: false, size: :sm) { "Zen vibes only" }
 
-          link_to("Learn more", Errors::NotFound)
+          link_to(
+            "Learn more",
+            Errors::NotFound,
+            class: "btn btn-primary mt-md"
+          )
         end
       end
     end

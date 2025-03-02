@@ -3,8 +3,6 @@
 require "./config/boot"
 Bundler.require(:test)
 
-require "capybara/rspec"
-require "phlex/testing/capybara"
 require "dry/inflector"
 
 inflector = Dry::Inflector.new
@@ -25,6 +23,6 @@ RSpec.configure do |config|
       metadata[:type] ||= inflector.singularize(type).to_sym
     end
   end
-
-  config.include Phlex::Testing::Capybara::ViewHelper, type: :view
 end
+
+Pathname.glob(Pathname(__dir__).join("support/**/*.rb")).each { |file| require file }

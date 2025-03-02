@@ -4,12 +4,12 @@ module Staticky
   module Phlex
     module ViewHelpers
       def helpers
-        @_view_context
+        context[:helpers]
       end
 
       def staticky_live_reload_js(base_path = "/")
         script(type: :module) do
-          unsafe_raw Staticky::Utils.live_reload_js(base_path)
+          raw safe(Staticky::Utils.live_reload_js(base_path))
         end
       end
 
