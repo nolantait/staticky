@@ -4,59 +4,91 @@ module Staticky
   module Utils
     module_function
 
-    def live_reload_js(base_path) # rubocop:disable Metrics/MethodLength
+    def live_reload_js(base_path, debug: false) # rubocop:disable Metrics/MethodLength
       return "" unless Staticky.env.development?
 
       path = File.join(base_path, "/_staticky/live_reload")
 
       <<~JAVASCRIPT
-        let lastmod = 0
-        let reconnectAttempts = 0
+        let lastmod = 0;
+        let reconnectAttempts = 0;
+        let connection = null;
+        let lastReloadAt = 0;
+        const MIN_RELOAD_INTERVAL = 1000;
+        const debug = #{debug};
+
+        function log(...args) {
+          if (debug) console.log("[LiveReload]", ...args);
+        }
 
         function statickyReload() {
           if (window.Turbo) {
-            Turbo.visit(window.location)
+            log("Reloading with Turbo");
+            Turbo.visit(window.location, { action: "replace" });
           } else {
-            location.reload()
+            log("Reloading without Turbo");
+            location.reload();
+          }
+        }
+
+        function safeReload() {
+          const now = Date.now();
+          if (now - lastReloadAt > MIN_RELOAD_INTERVAL) {
+            lastReloadAt = now;
+            statickyReload();
           }
         }
 
         function startLiveReload() {
-          const connection = new EventSource("#{path}")
+          if (connection) connection.close();
 
-          connection.addEventListener("message", event => {
-            reconnectAttempts = 0
+          connection = new EventSource("#{path}");
 
-            if (event.data == "reloaded!") {
-              statickyReload()
+          connection.addEventListener("message", (event) => {
+            log("Message:", event.data);
+            reconnectAttempts = 0;
+
+            if (event.data === "reloaded!") {
+              safeReload();
             } else {
-              const newmod = Number(event.data)
-
+              const newmod = Number(event.data);
               if (lastmod < newmod) {
-                statickyReload()
-                lastmod = newmod
+                safeReload();
+                lastmod = newmod;
               }
             }
-          })
+          });
+
+          connection.addEventListener("builderror", (event) => {
+            try {
+              const errorData = JSON.parse(event.data);
+              console.error("[Staticky] Build error:", errorData);
+            } catch (e) {
+              console.error("[Staticky] Malformed builderror event:", event.data);
+            }
+          });
 
           connection.addEventListener("error", () => {
             if (connection.readyState === 2) {
-              // reconnect with new object
-              connection.close()
-              reconnectAttempts++
+              connection.close();
+              reconnectAttempts++;
               if (reconnectAttempts < 25) {
-                console.warn("Live reload: attempting to reconnect in 3 seconds...")
-                setTimeout(() => startLiveReload(), 3000)
+                console.warn("Live reload: reconnecting in 3s...");
+                setTimeout(startLiveReload, 3000);
               } else {
                 console.error(
-                  "Too many live reload connections failed. Refresh the page to try again."
-                )
+                  "Too many live reload failures. Refresh the page to resume."
+                );
               }
             }
-          })
+          });
         }
 
-        startLiveReload()
+        window.addEventListener("beforeunload", () => {
+          if (connection) connection.close();
+        });
+
+        startLiveReload();
       JAVASCRIPT
     end
   end
