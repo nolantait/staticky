@@ -7,9 +7,9 @@ module Staticky
         context[:helpers]
       end
 
-      def staticky_live_reload_js(base_path = "/")
+      def staticky_live_reload_js(base_path = "/", debug: false)
         script(type: :module) do
-          raw safe(Staticky::Utils.live_reload_js(base_path))
+          raw safe(Staticky::Utils.live_reload_js(base_path, debug:))
         end
       end
 

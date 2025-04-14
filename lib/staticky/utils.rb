@@ -50,12 +50,6 @@ module Staticky
 
             if (event.data === "reloaded!") {
               safeReload();
-            } else {
-              const newmod = Number(event.data);
-              if (lastmod < newmod) {
-                safeReload();
-                lastmod = newmod;
-              }
             }
           });
 

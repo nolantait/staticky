@@ -20,6 +20,7 @@ module Staticky
               loop do
                 current_mtime = file_mtime(file_to_check)
                 should_reload = current_mtime > last_seen_mtime
+                last_seen_mtime = current_mtime
 
                 if should_reload
                   Staticky.logger.info(
