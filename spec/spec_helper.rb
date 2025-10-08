@@ -23,9 +23,10 @@ RSpec.configure do |config|
     Staticky.configure do |config|
       config.env = :test
       config.build_path = Pathname.new("build")
-      config.root_path = Pathname(__dir__).join("..")
+      config.root_path = Pathname.new(__dir__).join("..")
     end
   end
 end
 
-Pathname.glob(Pathname(__dir__).join("support/**/*.rb")).each { |file| require file }
+spec_folder = Pathname.new(__dir__)
+Pathname.glob(spec_folder.join("support/**/*.rb")).each { |file| require file }

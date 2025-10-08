@@ -438,7 +438,7 @@ module:
 Staticky.configure do |config|
   config.env = :test
   config.build_path = Pathname.new("dist")
-  config.root_path = Pathname(__dir__)
+  config.root_path = Pathname.new(__dir__)
   config.logger = Logger.new($stdout)
   config.server_logger = Logger.new($stdout)
   config.live_reloading = false
