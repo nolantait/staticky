@@ -1,6 +1,8 @@
+plugins:
+  - rubocop-capybara
+
 require:
   - rubocop-inhouse
-  - rubocop-capybara
 
 inherit_gem:
   rubocop-inhouse:
